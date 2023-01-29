@@ -20,4 +20,24 @@
 .left-container-form,
 .right-container-form {
     display: flex;
+    flex-shrink: 0;
+
+    .search-inp {
+        width: function.pxToRem(250);
+    }
+
+    .time-inp {
+        margin-left: function.spacing(1);
+        width: function.pxToRem(100);
+    }
+}
+
+.middle-container-form {
+    width: 100%;
+    max-width: function.pxToRem(450);
+    margin: function.spacing(0, 2);
+}
+
+.submit-inp-wrapper {
+    background-color: black;
 }

@@ -2,14 +2,21 @@
 @use 'src/scss/classes';
 
 .wrapper {
+    width: 100%;
     + .wrapper {
         margin-left: function.spacing(1);
     }
 }
 
+.container {
+    @include classes.center('align');
+    width: 100%;
+}
+
 .input {
     &-label {
         font-size: function.pxToRem(14);
+        margin-right: function.spacing(1);
     }
 
     &-base {
@@ -19,5 +26,6 @@
         outline: none;
         padding: function.spacing(0, 1);
         font-size: function.pxToRem(14);
+        width: 100%;
     }
 }
