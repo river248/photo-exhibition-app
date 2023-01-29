@@ -1,0 +1,29 @@
+@mixin center($type: 'both') {
+    display: flex;
+
+    @if $type == 'justify' {
+        justify-content: center;
+    }
+
+    @if $type == 'align' {
+        align-items: center;
+    }
+
+    @if $type == 'both' {
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@mixin text-ellipsis($limit: 1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @if ($limit > 1) {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: $limit;
+        white-space: unset;
+    }
+}

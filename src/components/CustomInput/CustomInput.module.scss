@@ -1,0 +1,23 @@
+@use 'src/scss/function';
+@use 'src/scss/classes';
+
+.wrapper {
+    + .wrapper {
+        margin-left: function.spacing(1);
+    }
+}
+
+.input {
+    &-label {
+        font-size: function.pxToRem(14);
+    }
+
+    &-base {
+        height: function.pxToRem(30);
+        border-radius: var(--radius);
+        border: 0;
+        outline: none;
+        padding: function.spacing(0, 1);
+        font-size: function.pxToRem(14);
+    }
+}
