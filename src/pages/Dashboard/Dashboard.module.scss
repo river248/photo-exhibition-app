@@ -17,9 +17,10 @@
     width: 100%;
 
     .submit-btn {
-        background-color: black;
+        background-color: var(--light-color-1);
         margin-left: function.spacing(1);
         font-size: function.pxToRem(14);
+        transform: rotate(90deg);
     }
 }
 

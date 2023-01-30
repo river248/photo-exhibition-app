@@ -1,8 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './Input.module.scss'
 
@@ -37,12 +37,12 @@ const Input = forwardRef(
             <div className={cx('wrapper')}>
                 {label && <label className={cx('label')}>{label}</label>}
                 <div className={cx('input-container')}>
-                    {/* {check && (
+                    {check && (
                         <span className={cx('icon', `check-${borderStatus}`)}>
                             {borderStatus === 'success' && <FontAwesomeIcon icon={faCheck} />}
                             {borderStatus === 'error' && <FontAwesomeIcon icon={faTriangleExclamation} />}
                         </span>
-                    )} */}
+                    )}
                     <Comp
                         ref={inputRef}
                         className={cx('input-base', {

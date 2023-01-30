@@ -1,5 +1,6 @@
 import React, { useId } from 'react'
 import classNames from 'classnames/bind'
+import { faTurnDown } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './Dashboard.module.scss'
 import Input from '~/components/Input'
@@ -33,7 +34,7 @@ function Dashboard() {
                         <Input className={cx('time-inp')} label={'when:'} />
                     </div>
 
-                    <Button className={cx('submit-btn')} title={'submit'} />
+                    <Button className={cx('submit-btn')} icon={faTurnDown} />
                 </form>
             </div>
         </div>
