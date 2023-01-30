@@ -5,7 +5,7 @@
     position: fixed;
     width: 100%;
     height: var(--header-height);
-    background-color: antiquewhite;
+    background-color: var(--light-color-4);
     @include classes.center('align');
     padding: function.spacing(0, 1);
     z-index: 100;
@@ -15,6 +15,12 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+
+    .submit-btn {
+        background-color: black;
+        margin-left: function.spacing(1);
+        font-size: function.pxToRem(14);
+    }
 }
 
 .left-container-form,
@@ -23,12 +29,16 @@
     flex-shrink: 0;
 
     .search-inp {
-        width: function.pxToRem(250);
+        width: function.pxToRem(200);
     }
 
     .time-inp {
-        margin-left: function.spacing(1);
-        width: function.pxToRem(100);
+        width: function.pxToRem(40);
+    }
+
+    .search-inp,
+    .time-inp {
+        @include classes.text-ellipsis();
     }
 }
 
@@ -36,8 +46,8 @@
     width: 100%;
     max-width: function.pxToRem(450);
     margin: function.spacing(0, 2);
-}
 
-.submit-inp-wrapper {
-    background-color: black;
+    .query-inp {
+        @include classes.text-ellipsis();
+    }
 }
