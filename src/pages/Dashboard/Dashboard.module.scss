@@ -9,6 +9,7 @@
     @include classes.center('align');
     padding: function.spacing(0, 1);
     z-index: 100;
+    box-shadow: var(--box-shadow);
 }
 
 .query-form {
@@ -50,5 +51,54 @@
 
     .query-inp {
         @include classes.text-ellipsis();
+    }
+}
+
+.container {
+    padding-top: var(--header-height);
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--light-color-1);
+}
+
+.gallery {
+    width: calc(1 / 3 * 100%);
+    padding: function.spacing(4);
+    @include classes.center('align');
+    position: relative;
+}
+
+.image-left-wrapper,
+.image-mid-wrapper,
+.image-right-wrapper {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.image-left-wrapper,
+.image-right-wrapper {
+    width: 30%;
+    padding-top: calc(3 / 4 * 30%);
+}
+
+.image-mid-wrapper {
+    width: 40%;
+    padding-top: calc(3 / 4 * 40%);
+    margin: function.spacing(0, 0.2);
+}
+
+.border-image {
+    & > .image-left-wrapper,
+    > .image-right-wrapper {
+        width: 25%;
+        padding-top: calc(3 / 4 * 25%);
+    }
+
+    & > .image-mid-wrapper {
+        width: 50%;
+        padding-top: calc(3 / 4 * 50%);
+        border: function.pxToRem(4) solid var(--light-color-3);
+        box-shadow: var(--box-shadow);
     }
 }

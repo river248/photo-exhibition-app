@@ -5,8 +5,24 @@ import { faTurnDown } from '@fortawesome/free-solid-svg-icons'
 import styles from './Dashboard.module.scss'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
+import Image from '~/components/Image'
 
 const cx = classNames.bind(styles)
+
+const listImage = [
+    { focused: true, number: ['before', 'current', 'after'] },
+    { focused: true, number: ['before', 'current', 'after'] },
+    { focused: true, number: ['before', 'current', 'after'] },
+    { focused: true, number: ['before', 'current', 'after'] },
+    { focused: true, number: ['before', 'current', 'after'] },
+    { focus: false, number: ['', 'current', 'after'] },
+    { focus: false, number: ['before', 'current', 'after'] },
+    { focus: false, number: ['before', 'current', 'after'] },
+    { focus: false, number: ['before', 'current', 'after'] },
+    { focus: false, number: ['before', 'current', 'after'] },
+    { focus: false, number: ['before', 'current', 'after'] },
+    { focus: false, number: ['', 'current', 'after'] },
+]
 
 function Dashboard() {
     const formId = useId()
@@ -31,6 +47,14 @@ function Dashboard() {
         }
     }
 
+    const background = (index) => {
+        const line = Math.ceil(index / 3)
+        if (line % 2 === 0) {
+            return 'even'
+        }
+        return 'odd'
+    }
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -51,6 +75,22 @@ function Dashboard() {
 
                     <Button className={cx('submit-btn')} icon={faTurnDown} />
                 </form>
+            </div>
+
+            <div className={cx('container')}>
+                {listImage.map((item, index) => (
+                    <div key={index} className={cx('gallery', item.focused ? 'border-image' : '')}>
+                        <div className={cx('image-left-wrapper')}>
+                            {item.number[0] && <Image absolute src={''} alt={''} />}
+                        </div>
+                        <div className={cx('image-mid-wrapper', item.focused ? 'box-shadow' : '')}>
+                            {item.number[1] && <Image absolute src={''} alt={''} />}
+                        </div>
+                        <div className={cx('image-right-wrapper')}>
+                            {item.number[2] && <Image absolute src={''} alt={''} />}
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     )
