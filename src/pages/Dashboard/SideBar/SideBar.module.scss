@@ -1,0 +1,52 @@
+@use 'src/scss/function';
+@use 'src/scss/classes';
+
+.remove-btn {
+    bottom: function.spacing(0.5);
+    color: var(--error);
+}
+
+.title {
+    height: var(--header-height);
+    @include classes.center();
+    font-size: function.pxToRem(15);
+    color: var(--white);
+}
+
+.bookmark {
+    margin-left: function.spacing(1);
+    position: relative;
+    font-size: function.pxToRem(20);
+
+    span {
+        position: absolute;
+        font-size: function.pxToRem(13);
+        width: fit-content;
+        height: function.pxToRem(20);
+        min-width: function.pxToRem(20);
+        padding: function.spacing(0.1, 1, 0.1);
+        background-color: var(--light-color-1);
+        border-radius: function.pxToRem(10);
+        @include classes.center();
+        top: -50%;
+        left: 50%;
+    }
+}
+
+.saved {
+    &-gallery {
+        padding: function.spacing(1, 5);
+        display: flex;
+        flex-wrap: wrap;
+
+        &-item {
+            width: 50%;
+            padding: function.spacing(2, 1);
+        }
+    }
+
+    &-image {
+        width: 100%;
+        padding-top: calc(3 / 4 * 100%);
+    }
+}

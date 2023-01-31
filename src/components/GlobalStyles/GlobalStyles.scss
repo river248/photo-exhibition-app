@@ -1,3 +1,5 @@
+@use 'src/scss/function';
+@use 'src/scss/classes';
 @import 'normalize.css';
 
 :root {
@@ -36,4 +38,21 @@ body {
 
 a {
     text-decoration: none;
+}
+
+.image-wrapper {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.position-img-icon {
+    position: absolute;
+    z-index: 1;
+    right: function.spacing(0.7);
+    cursor: pointer;
+    @include classes.center();
+    width: function.pxToRem(20);
+    height: function.pxToRem(20);
+    font-size: function.pxToRem(20);
 }

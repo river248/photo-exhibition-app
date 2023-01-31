@@ -30,17 +30,20 @@
     padding: function.spacing(4);
     @include classes.center('align');
     position: relative;
+
+    .check-btn {
+        bottom: function.spacing(0.5);
+        color: var(--success);
+    }
+
+    .select-btn {
+        bottom: function.spacing(3.5);
+        color: var(--infor);
+        font-size: function.pxToRem(15);
+    }
 }
 
 .image-wrapper {
-    &-left,
-    &-mid,
-    &-right {
-        position: relative;
-        border-radius: var(--radius);
-        overflow: hidden;
-    }
-
     &-left,
     &-right {
         width: 30%;
