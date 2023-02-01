@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faTrashCan } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './SideBar.module.scss'
-import Image from '~/components/Image'
+import OverlayImage from '~/components/OverlayImage'
 
 const cx = classNames.bind(styles)
 
@@ -25,11 +25,7 @@ function SideBar() {
                 {listSavedImages.map((image) => (
                     <div key={image} className={cx('saved-gallery-item')}>
                         <div className={cx('image-wrapper', 'saved-image')}>
-                            <Image absolute src={''} alt={''} />
-
-                            <span className={cx('position-img-icon', 'remove-btn')}>
-                                <FontAwesomeIcon icon={faTrashCan} />
-                            </span>
+                            <OverlayImage src={''} alt={''} />
                         </div>
                     </div>
                 ))}

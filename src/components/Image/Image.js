@@ -8,7 +8,7 @@ import images from '~/assets/images'
 const cx = classNames.bind(styles)
 
 const Image = forwardRef(
-    ({ src, alt, absolute, hover, fallback: customFallback = images.noImage, ...props }, reference) => {
+    ({ src, alt, absolute, hover, className, fallback: customFallback = images.noImage, ...props }, reference) => {
         const [fallback, setFallback] = useState('')
 
         const handleError = useCallback(() => {
@@ -17,7 +17,7 @@ const Image = forwardRef(
 
         return (
             <img
-                className={cx('image', { absolute, hover })}
+                className={cx('image', { absolute, hover, [className]: className })}
                 ref={reference}
                 src={fallback || src}
                 alt={alt}
@@ -34,6 +34,7 @@ Image.propTypes = {
     alt: PropTypes.string.isRequired,
     absolute: PropTypes.bool,
     hover: PropTypes.bool,
+    className: PropTypes.string,
     fallback: PropTypes.string,
 }
 

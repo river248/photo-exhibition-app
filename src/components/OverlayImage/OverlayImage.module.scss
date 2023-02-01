@@ -1,0 +1,42 @@
+@use 'src/scss/function';
+@use 'src/scss/classes';
+
+$transition: 0.5s ease;
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: calc(3 / 4 * 100%);
+}
+
+.image {
+    opacity: 1;
+    transition: $transition;
+    backface-visibility: hidden;
+}
+
+.middle {
+    transition: $transition;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.wrapper:hover .image {
+    opacity: 0.3;
+}
+
+.wrapper:hover .middle {
+    opacity: 1;
+}
+
+.text {
+    background-color: #04aa6d;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}

@@ -8,6 +8,7 @@ import styles from './Dashboard.module.scss'
 import Image from '~/components/Image'
 import Header from './Header'
 import SideBar from './SideBar'
+import OverlayImage from '~/components/OverlayImage'
 
 const cx = classNames.bind(styles)
 
@@ -36,43 +37,13 @@ function Dashboard() {
                     {listImage.map((item, index) => (
                         <div key={index} className={cx('gallery', item.focused ? 'border-image' : '')}>
                             <div className={cx('image-wrapper', 'image-wrapper-left')}>
-                                {item.number[0] && (
-                                    <Fragment>
-                                        <Image absolute src={''} alt={''} />
-                                        <span className={cx('position-img-icon', 'select-btn')}>
-                                            <FontAwesomeIcon icon={faBookmark} />
-                                        </span>
-                                        <span className={cx('position-img-icon', 'check-btn')}>
-                                            <FontAwesomeIcon icon={faSquareCheck} />
-                                        </span>
-                                    </Fragment>
-                                )}
+                                {item.number[0] && <OverlayImage src={''} alt={''} />}
                             </div>
                             <div className={cx('image-wrapper', 'image-wrapper-mid', item.focused ? 'box-shadow' : '')}>
-                                {item.number[1] && (
-                                    <Fragment>
-                                        <Image absolute src={''} alt={''} />
-                                        <span className={cx('position-img-icon', 'select-btn')}>
-                                            <FontAwesomeIcon icon={faBookmark} />
-                                        </span>
-                                        <span className={cx('position-img-icon', 'check-btn')}>
-                                            <FontAwesomeIcon icon={faSquareCheck} />
-                                        </span>
-                                    </Fragment>
-                                )}
+                                {item.number[1] && <OverlayImage src={''} alt={''} />}
                             </div>
                             <div className={cx('image-wrapper', 'image-wrapper-right')}>
-                                {item.number[2] && (
-                                    <Fragment>
-                                        <Image absolute src={''} alt={''} />
-                                        <span className={cx('position-img-icon', 'select-btn')}>
-                                            <FontAwesomeIcon icon={faBookmark} />
-                                        </span>
-                                        <span className={cx('position-img-icon', 'check-btn')}>
-                                            <FontAwesomeIcon icon={faSquareCheck} />
-                                        </span>
-                                    </Fragment>
-                                )}
+                                {item.number[2] && <OverlayImage src={''} alt={''} />}
                             </div>
                         </div>
                     ))}

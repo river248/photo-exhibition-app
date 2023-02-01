@@ -35,7 +35,7 @@
 
 .saved {
     &-gallery {
-        padding: function.spacing(1, 5);
+        padding: function.spacing(1, 2);
         display: flex;
         flex-wrap: wrap;
 
@@ -47,6 +47,5 @@
 
     &-image {
         width: 100%;
-        padding-top: calc(3 / 4 * 100%);
     }
 }

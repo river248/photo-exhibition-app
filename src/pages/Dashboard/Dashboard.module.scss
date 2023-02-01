@@ -7,12 +7,12 @@
 
 .container {
     &-left {
-        width: 70%;
+        width: 80%;
         position: relative;
     }
 
     &-right {
-        width: 30%;
+        width: 20%;
         background-color: var(--light-color-3);
     }
 }
@@ -47,12 +47,10 @@
     &-left,
     &-right {
         width: 30%;
-        padding-top: calc(3 / 4 * 30%);
     }
 
     &-mid {
         width: 40%;
-        padding-top: calc(3 / 4 * 40%);
         margin: function.spacing(0, 0.2);
     }
 }
@@ -62,12 +60,10 @@
         &-left,
         &-right {
             width: 25%;
-            padding-top: calc(3 / 4 * 25%);
         }
 
         &-mid {
             width: 50%;
-            padding-top: calc(3 / 4 * 50%);
             border: function.pxToRem(4) solid var(--light-color-3);
             box-shadow: var(--box-shadow);
         }

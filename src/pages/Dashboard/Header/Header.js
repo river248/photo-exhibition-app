@@ -36,7 +36,7 @@ function Header() {
             <form id={formId} className={cx('container')} onSubmit={(e) => handleSubmit(e)}>
                 <div className={cx('container-left')}>
                     <Input ref={beforeInpRef} className={cx('search-inp')} label={'Before:'} />
-                    <Input className={cx('time-inp')} label={'when:'} />
+                    <Input className={cx('time-inp')} label={'when:'} readOnly />
                 </div>
 
                 <div className={cx('container-middle')}>
@@ -45,7 +45,7 @@ function Header() {
 
                 <div className={cx('container-right')}>
                     <Input ref={afterInpRef} className={cx('search-inp')} label={'After:'} />
-                    <Input className={cx('time-inp')} label={'when:'} />
+                    <Input className={cx('time-inp')} label={'when:'} readOnly />
                 </div>
 
                 <Button className={cx('submit-btn')} icon={faTurnDown} />
