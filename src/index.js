@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom/client'
+import { Slide, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import App from './App'
 import GlobalStyles from './components/GlobalStyles'
@@ -12,6 +14,18 @@ root.render(
             <GlobalStyles>
                 <App />
             </GlobalStyles>
+            <ToastContainer
+                position={'top-right'}
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                style={{ width: '100%', maxWidth: '30rem', marginTop: '1rem' }}
+                closeButton={true}
+                toastStyle={{ fontSize: 15, fontFamily: 'Segoe UI' }}
+                transition={Slide}
+                limit={3}
+                rtl={false}
+            />
         </Router>
     </React.StrictMode>,
 )

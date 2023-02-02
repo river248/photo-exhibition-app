@@ -29,6 +29,12 @@ $borderStyle: function.pxToRem(2) solid;
     border: $borderStyle var(--white-70);
     background-color: var(--white-30);
     color: var(--white);
+
+    &::placeholder {
+        color: var(--white);
+        font-style: italic;
+        position: relative;
+    }
 }
 
 .textarea {
@@ -36,13 +42,15 @@ $borderStyle: function.pxToRem(2) solid;
     resize: none;
 }
 
-// .error-text {
-//     margin-top: function.spacing(1);
-//     font-style: italic;
-//     font-weight: 600;
-//     font-size: function.pxToRem(13);
-//     color: var(--error);
-// }
+.error-text {
+    margin-top: function.spacing(1);
+    font-style: italic;
+    font-weight: 600;
+    font-size: function.pxToRem(13);
+    color: var(--error);
+    background-color: white;
+    display: block;
+}
 
 .success,
 .error {
