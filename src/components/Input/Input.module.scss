@@ -6,10 +6,6 @@ $borderStyle: function.pxToRem(2) solid;
 
 .wrapper {
     @include classes.center('align');
-
-    + .wrapper {
-        margin-left: function.spacing(1);
-    }
 }
 
 .label {
@@ -18,49 +14,10 @@ $borderStyle: function.pxToRem(2) solid;
 }
 
 .input-container {
+    display: flex;
     position: relative;
     width: 100%;
 }
-
-// .icon {
-//     position: absolute;
-//     @include classes.center();
-//     width: function.pxToRem(40);
-//     z-index: 1;
-//     top: 50%;
-//     transform: translateY(-50%);
-//     right: 0;
-// }
-
-// .check {
-//     &-success {
-//         color: var(--success);
-//     }
-
-//     &-error {
-//         color: var(--error);
-//     }
-
-//     &-success,
-//     &-error {
-//         + .input-base {
-//             padding-right: function.spacing(5);
-//         }
-//     }
-// }
-
-// .input-base,
-// .primary,
-// .secondary {
-//     &:focus,
-//     &:focus:hover {
-//         color: var(--black);
-//         border: $borderStyle var(--infor);
-//         background-color: var(--white);
-//         box-shadow: unset;
-//         cursor: auto;
-//     }
-// }
 
 .input-base {
     font-size: function.pxToRem(14);
@@ -69,7 +26,9 @@ $borderStyle: function.pxToRem(2) solid;
     padding: function.spacing(0.5, 1);
     width: 100%;
     height: function.pxToRem(30);
-    border: $borderStyle var(--black-70);
+    border: $borderStyle var(--white-70);
+    background-color: var(--white-30);
+    color: var(--white);
 }
 
 .textarea {
@@ -83,33 +42,6 @@ $borderStyle: function.pxToRem(2) solid;
 //     font-weight: 600;
 //     font-size: function.pxToRem(13);
 //     color: var(--error);
-// }
-
-// .primary {
-//     background-color: var(--pastel-black);
-//     border: $borderStyle var(--pastel-black);
-//     color: var(--white);
-// }
-
-// .secondary {
-//     border: $borderStyle var(--white-70);
-//     background-color: var(--white-30);
-//     color: var(--white);
-
-//     &::placeholder {
-//         color: var(--white);
-//     }
-
-//     &:hover {
-//         border: $borderStyle var(--white);
-//         cursor: auto;
-//     }
-
-//     &:focus {
-//         &::placeholder {
-//             color: var(--black);
-//         }
-//     }
 // }
 
 .success,

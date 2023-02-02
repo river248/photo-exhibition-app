@@ -3,23 +3,34 @@
 @import 'normalize.css';
 
 :root {
-    --light-color-1: #655d8a;
-    --light-color-2: #7897ab;
-    --light-color-3: #d885a3;
-    --light-color-4: #fdceb9;
+    --gray: #e2e2e2;
+    --black: #282828;
+    --violet: #fc00ff;
+    --light-blue: #00dbde;
+    --white-30: #ffffff30;
+    --white-20: #ffffff20;
+    --white-70: #ffffff70;
+    --black-30: #00000030;
+    --black-20: #00000020;
+    --black-70: #00000070;
+    --pastel-black: #262525;
     --warning: #fec260;
     --white: #fff;
     --infor: #1976d2;
     --error: #ff1e1e;
     --success: #54b435;
+    --purple: #533483;
 
     --blur: 0.563rem;
     --radius: 0.25rem;
 
     --header-height: 3.125rem;
+    --nav-width: 23.75rem;
 
     --box-shadow: #00000020 0 0.1875rem 0.0625rem -0.125rem, #00000014 0 0.125rem 0.125rem 0,
         #00000012 0 0.0625rem 0.3125rem 0;
+
+    --transition-var: all 0.2s ease;
 }
 
 * {
@@ -34,8 +45,10 @@ html {
 
 body {
     text-rendering: optimizeSpeed;
+    background-image: linear-gradient(-135deg, var(--violet), var(--light-blue));
     font-family: Roboto, Arial, Helvetica, sans-serif;
     letter-spacing: 0.00938em;
+    color: var(--white);
 }
 
 a {
@@ -48,13 +61,12 @@ a {
     overflow: hidden;
 }
 
-.position-img-icon {
-    position: absolute;
-    z-index: 1;
-    right: function.spacing(0.7);
-    cursor: pointer;
-    @include classes.center();
-    width: function.pxToRem(20);
-    height: function.pxToRem(20);
-    font-size: function.pxToRem(20);
+.hide-nav {
+    &.slide-left-right {
+        transform: translateX(calc(function.pxToRem(16) - var(--nav-width)));
+    }
+
+    ~ .expand {
+        padding-left: function.spacing(2.625);
+    }
 }

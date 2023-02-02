@@ -6,23 +6,12 @@
 }
 
 .container {
-    &-left {
-        width: 80%;
-        position: relative;
-    }
-
-    &-right {
-        width: 20%;
-        background-color: var(--light-color-3);
-    }
-}
-
-.content {
-    padding-top: var(--header-height);
+    padding-left: var(--nav-width);
     display: flex;
     flex-wrap: wrap;
-    background-color: var(--light-color-1);
     min-height: 100vh;
+    width: 100%;
+    transition: var(--transition-var);
 }
 
 .gallery {
@@ -64,7 +53,7 @@
 
         &-mid {
             width: 50%;
-            border: function.pxToRem(4) solid var(--light-color-3);
+            border: function.pxToRem(4) solid var(--success);
             box-shadow: var(--box-shadow);
         }
     }

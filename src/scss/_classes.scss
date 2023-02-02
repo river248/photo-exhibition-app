@@ -15,6 +15,17 @@
     }
 }
 
+@mixin glass-background($type: 'light') {
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+
+    @if $type == 'light' {
+        background-color: var(--white-30);
+    } @else if $type == 'dark' {
+        background-color: var(--black-30);
+    }
+}
+
 @mixin text-ellipsis($limit: 1) {
     overflow: hidden;
     text-overflow: ellipsis;

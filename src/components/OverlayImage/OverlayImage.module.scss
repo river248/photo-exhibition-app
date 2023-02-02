@@ -1,8 +1,6 @@
 @use 'src/scss/function';
 @use 'src/scss/classes';
 
-$transition: 0.5s ease;
-
 .wrapper {
     position: relative;
     width: 100%;
@@ -11,12 +9,12 @@ $transition: 0.5s ease;
 
 .image {
     opacity: 1;
-    transition: $transition;
+    transition: var(--transition-var);
     backface-visibility: hidden;
 }
 
 .middle {
-    transition: $transition;
+    transition: var(--transition-var);
     position: absolute;
     opacity: 0;
     top: 0;
