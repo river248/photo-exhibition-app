@@ -12,9 +12,7 @@ function OverlayImage({ src, alt, children }) {
         <div className={cx('wrapper')}>
             <Image className={cx('image')} absolute src={src} alt={alt} />
 
-            <div className={cx('middle')}>
-                <div className={cx('text')}>John Doe</div>
-            </div>
+            <div className={cx('middle')}>{children}</div>
         </div>
     )
 }
@@ -22,7 +20,7 @@ function OverlayImage({ src, alt, children }) {
 OverlayImage.propTypes = {
     // src: PropTypes.string.isRequired,
     // alt: PropTypes.string.isRequired,
-    // children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 }
 
 export default React.memo(OverlayImage)
