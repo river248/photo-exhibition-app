@@ -2,16 +2,15 @@
 @use 'src/scss/classes';
 
 .wrapper {
-    display: flex;
+    min-height: 100vh;
+    padding-left: var(--nav-width);
+    transition: var(--transition-var);
 }
 
 .container {
-    padding-left: var(--nav-width);
     display: flex;
     flex-wrap: wrap;
-    min-height: 100vh;
     width: 100%;
-    transition: var(--transition-var);
 }
 
 .header {
