@@ -55,13 +55,6 @@
         width: function.pxToRem(55);
     }
 
-    .label {
-        width: function.pxToRem(80);
-        flex-shrink: 0;
-        font-style: italic;
-        font-weight: 600;
-    }
-
     .submit-btn {
         background-color: var(--black-70);
         margin-top: function.spacing(1);

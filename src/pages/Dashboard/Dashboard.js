@@ -32,7 +32,7 @@ function Dashboard() {
             <Filter />
             <div className={cx('container', 'expand')}>
                 <div className={cx('header')}>
-                    <Button className={cx('link')} to={routes.savedScence} title={'Go to saved scence'} />
+                    <Button className={cx('link')} to={routes.savedScence} title={'Saved scence'} />
                     <h1>Result</h1>
                 </div>
                 {listImage.map((item, index) => (

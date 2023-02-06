@@ -70,3 +70,10 @@ a {
         padding-left: function.spacing(2.625);
     }
 }
+
+.label {
+    width: function.pxToRem(80);
+    flex-shrink: 0;
+    font-style: italic;
+    font-weight: 600;
+}

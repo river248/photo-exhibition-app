@@ -3,10 +3,13 @@ import classNames from 'classnames/bind'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
+import { format } from 'date-fns'
+import { isEmpty } from 'lodash'
 
 import styles from './Filter.module.scss'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
+import DateTimeInput from '~/components/DateTimeInput'
 
 const cx = classNames.bind(styles)
 
@@ -18,6 +21,7 @@ function Filter() {
     const locationInpRef = useRef()
 
     const [isVisible, setIsVisible] = useState(true)
+    const [dateRange, setDateRange] = useState({})
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -28,12 +32,12 @@ function Filter() {
         }
 
         // Handle submit if query is not null
-        if (queryInpRef.current.value && locationInpRef.current.value) {
+        if (queryInpRef.current.value && locationInpRef.current.value && !isEmpty(dateRange)) {
             data = {
                 ...data,
                 query: queryInpRef.current.value,
-                start_date: '2019-01-01',
-                end_date: '2019-01-31',
+                start_date: dateRange.startDate,
+                end_date: dateRange.endDate,
                 location: locationInpRef.current.value,
                 // is_temporal_search: true,
             }
@@ -92,7 +96,14 @@ function Filter() {
                     />
                 </div>
                 <div className={cx('input-wrapper')}>
-                    <Input lblClassName={cx('label')} label={'Date time:'} placeholder={'yyyy/MM/dd ~ yyyy/MM/dd'} />
+                    <DateTimeInput
+                        onChange={(value) =>
+                            setDateRange({
+                                startDate: format(value.startDate, 'yyyy-MM-dd'),
+                                endDate: format(value.endDate, 'yyyy-MM-dd'),
+                            })
+                        }
+                    />
                 </div>
 
                 <div className={cx('input-wrapper')}>

@@ -8,7 +8,7 @@ $borderStyle: function.pxToRem(2) solid;
     @include classes.center('align');
 }
 
-.label {
+.inp-label {
     font-size: function.pxToRem(15);
     margin-right: function.spacing(1);
 }

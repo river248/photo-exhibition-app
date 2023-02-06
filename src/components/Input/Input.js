@@ -33,7 +33,7 @@ const Input = forwardRef(
 
         return (
             <div className={cx('wrapper')}>
-                {label && <label className={cx('label', { [lblClassName]: lblClassName })}>{label}</label>}
+                {label && <label className={cx('inp-label', { [lblClassName]: lblClassName })}>{label}</label>}
                 <div className={cx('input-container')}>
                     <Comp
                         ref={inputRef}
