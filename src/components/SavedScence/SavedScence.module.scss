@@ -9,8 +9,10 @@
 .title {
     height: var(--header-height);
     @include classes.center();
-    font-size: function.pxToRem(15);
-    color: var(--white);
+    font-size: function.pxToRem(25);
+    color: var(--black);
+    font-weight: 600;
+    font-style: italic;
 }
 
 .bookmark {
@@ -25,11 +27,13 @@
         height: function.pxToRem(20);
         min-width: function.pxToRem(20);
         padding: function.spacing(0.1, 1, 0.1);
-        background-color: var(--light-color-1);
+        background-color: var(--error);
         border-radius: function.pxToRem(10);
         @include classes.center();
         top: -50%;
         left: 50%;
+        line-height: 1.5;
+        color: var(--white);
     }
 }
 
@@ -40,7 +44,7 @@
         flex-wrap: wrap;
 
         &-item {
-            width: 50%;
+            width: 25%;
             padding: function.spacing(2, 1);
         }
     }

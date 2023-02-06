@@ -79,9 +79,28 @@
 .icon {
     font-size: function.pxToRem(25);
     cursor: pointer;
-    color: var(--black);
+    color: var(--white);
 
     + .icon {
         margin-left: function.spacing(2);
+    }
+}
+
+.saved-scence {
+    &-wrapper {
+        position: fixed;
+        z-index: 150;
+        @include classes.center();
+        inset: 0;
+    }
+
+    &-container {
+        width: 80vw;
+        height: 80vh;
+        overflow-y: auto;
+        background-color: var(--white);
+        box-shadow: var(--box-shadow);
+        border-radius: var(--radius);
+        padding: function.spacing(2, 0);
     }
 }

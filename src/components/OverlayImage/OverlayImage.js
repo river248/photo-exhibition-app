@@ -18,9 +18,9 @@ function OverlayImage({ src, alt, children }) {
 }
 
 OverlayImage.propTypes = {
-    // src: PropTypes.string.isRequired,
-    // alt: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    children: PropTypes.node,
 }
 
 export default React.memo(OverlayImage)

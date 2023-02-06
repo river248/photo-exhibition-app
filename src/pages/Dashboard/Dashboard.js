@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import classNames from 'classnames/bind'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookmark, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './Dashboard.module.scss'
 import OverlayImage from '~/components/OverlayImage'
 import Filter from '~/components/Filter'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
 import Button from '~/components/Button'
-import routes from '~/configs/routes'
 import images from '~/assets/images'
+import SavedScence from '~/components/SavedScence'
 
 const cx = classNames.bind(styles)
 
@@ -24,12 +24,14 @@ const listImage = [
 ]
 
 function Dashboard() {
+    const [openModal, setOpenModal] = useState(false)
+
     return (
         <Fragment>
             <Filter />
             <div className={cx('wrapper', 'expand')}>
                 <div className={cx('header')}>
-                    <Button className={cx('link')} to={routes.savedScence} title={'Saved scence'} />
+                    <Button className={cx('link')} onClick={() => setOpenModal(true)} title={'Saved scence'} />
                     <h1>Result</h1>
                 </div>
                 <div className={cx('container')}>
@@ -37,7 +39,7 @@ function Dashboard() {
                         <div key={index} className={cx('gallery', item.focused ? 'border-image' : '')}>
                             <div className={cx('image-wrapper', 'image-wrapper-left')}>
                                 {item.image[0] && (
-                                    <OverlayImage src={item.image[0]} alt={''}>
+                                    <OverlayImage src={item.image[0]} alt={'prev event image'}>
                                         <div className={cx('img-action')}>
                                             <span className={cx('icon')}>
                                                 <FontAwesomeIcon icon={faBookmark} />
@@ -51,7 +53,7 @@ function Dashboard() {
                             </div>
                             <div className={cx('image-wrapper', 'image-wrapper-mid', item.focused ? 'box-shadow' : '')}>
                                 {item.image[1] && (
-                                    <OverlayImage src={item.image[1]} alt={''}>
+                                    <OverlayImage src={item.image[1]} alt={'current event image'}>
                                         <div className={cx('img-action')}>
                                             <span className={cx('icon')}>
                                                 <FontAwesomeIcon icon={faBookmark} />
@@ -65,7 +67,7 @@ function Dashboard() {
                             </div>
                             <div className={cx('image-wrapper', 'image-wrapper-right')}>
                                 {item.image[2] && (
-                                    <OverlayImage src={item.image[2]} alt={''}>
+                                    <OverlayImage src={item.image[2]} alt={'next event image'}>
                                         <div className={cx('img-action')}>
                                             <span className={cx('icon')}>
                                                 <FontAwesomeIcon icon={faBookmark} />
@@ -81,6 +83,19 @@ function Dashboard() {
                     ))}
                 </div>
             </div>
+
+            {openModal && (
+                <div
+                    className={cx('saved-scence-wrapper')}
+                    onClick={() => {
+                        setOpenModal(false)
+                    }}
+                >
+                    <div className={cx('saved-scence-container')} onClick={(e) => e.stopPropagation()}>
+                        <SavedScence listSavedImages={listImage[0].image} />
+                    </div>
+                </div>
+            )}
         </Fragment>
     )
 }
