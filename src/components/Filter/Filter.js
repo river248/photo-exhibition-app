@@ -1,19 +1,19 @@
 import React, { useId, useRef, useState, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify'
 import { format } from 'date-fns'
-import { isEmpty } from 'lodash'
+import { connect } from 'react-redux'
 
 import styles from './Filter.module.scss'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 import DateTimeInput from '~/components/DateTimeInput'
+import { actToggleModal } from '~/redux/actions/globalAction'
 
 const cx = classNames.bind(styles)
 
-function Filter() {
+function Filter({ toggleModal }) {
     const formId = useId()
     const beforeInpRef = useRef()
     const queryInpRef = useRef()
@@ -134,10 +134,34 @@ function Filter() {
 
                 <Button className={cx('submit-btn')} title={'Search'} center />
             </form>
-            <Button className={cx('submit-btn')} title={visibleMore ? 'Show less' : 'Show more'} center fullsize onClick={() => setVisibleMore(prev => !prev)} />
-            <Button className={cx('submit-btn', 'link')} title={'Saved scence'} center fullsize />
+            <Button
+                className={cx('submit-btn')}
+                title={visibleMore ? 'Show less' : 'Show more'}
+                center
+                fullsize
+                onClick={() => setVisibleMore((prev) => !prev)}
+            />
+            <Button
+                className={cx('submit-btn', 'link')}
+                title={'Saved scence'}
+                center
+                fullsize
+                onClick={() => toggleModal(true)}
+            />
         </div>
     )
 }
 
-export default React.memo(Filter)
+Filter.propTypes = {
+    toggleModal: PropTypes.func,
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleModal: (status) => {
+            dispatch(actToggleModal(status))
+        },
+    }
+}
+
+export default connect(null, mapDispatchToProps)(React.memo(Filter))

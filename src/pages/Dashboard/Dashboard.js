@@ -1,14 +1,16 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import classNames from 'classnames/bind'
+import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
+import { connect } from 'react-redux'
 
 import styles from './Dashboard.module.scss'
 import OverlayImage from '~/components/OverlayImage'
 import Filter from '~/components/Filter'
-import Button from '~/components/Button'
 import images from '~/assets/images'
 import SavedScence from '~/components/SavedScence'
+import { actToggleModal } from '~/redux/actions/globalAction'
 
 const cx = classNames.bind(styles)
 
@@ -23,9 +25,7 @@ const listImage = [
     { focused: false, image: [images.img06_084803, images.img06_085011, images.img06_085043] },
 ]
 
-function Dashboard() {
-    const [openModal, setOpenModal] = useState(false)
-
+function Dashboard({ isOpenModal, toggleModal }) {
     return (
         <Fragment>
             <Filter />
@@ -83,11 +83,11 @@ function Dashboard() {
                 </div>
             </div>
 
-            {openModal && (
+            {isOpenModal && (
                 <div
                     className={cx('saved-scence-wrapper')}
                     onClick={() => {
-                        setOpenModal(false)
+                        toggleModal(false)
                     }}
                 >
                     <div className={cx('saved-scence-container')} onClick={(e) => e.stopPropagation()}>
@@ -99,4 +99,22 @@ function Dashboard() {
     )
 }
 
-export default Dashboard
+Dashboard.propTypes = {
+    isOpenModal: PropTypes.bool,
+    toggleModal: PropTypes.func,
+}
+
+const mapStateToProps = (state) => {
+    return {
+        isOpenModal: state.globalReducer.isOpenModal,
+    }
+}
+const mapDisptachToProps = (dispatch) => {
+    return {
+        toggleModal: (status) => {
+            dispatch(actToggleModal(status))
+        },
+    }
+}
+
+export default connect(mapStateToProps, mapDisptachToProps)(Dashboard)

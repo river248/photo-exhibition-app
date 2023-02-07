@@ -3,17 +3,21 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom/client'
 import { Slide, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Provider } from 'react-redux'
 
 import App from './App'
 import GlobalStyles from './components/GlobalStyles'
+import store from './redux/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
         <Router>
-            <GlobalStyles>
-                <App />
-            </GlobalStyles>
+            <Provider store={store}>
+                <GlobalStyles>
+                    <App />
+                </GlobalStyles>
+            </Provider>
             <ToastContainer
                 position={'top-right'}
                 autoClose={5000}
