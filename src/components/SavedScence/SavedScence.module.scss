@@ -53,3 +53,8 @@
         width: 100%;
     }
 }
+
+.icon {
+    font-size: function.pxToRem(25);
+    cursor: pointer;
+}

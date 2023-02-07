@@ -11,21 +11,71 @@ import Filter from '~/components/Filter'
 import images from '~/assets/images'
 import SavedScence from '~/components/SavedScence'
 import { actToggleModal } from '~/redux/actions/globalAction'
+import { actSaveImage } from '~/redux/actions/imageAction'
 
 const cx = classNames.bind(styles)
 
 const listImage = [
-    { focused: true, image: [images.img05_075336, images.img05_075408, images.img05_075440] },
-    { focused: true, image: [images.img05_075941, images.img05_082810, images.img05_083402] },
-    { focused: true, image: [images.img05_091011, images.img05_094120, images.img05_102720] },
-    { focused: true, image: [images.img05_102752, images.img05_102824, ''] },
-    { focused: false, image: [images.img06_075312, images.img06_075344, images.img06_075416] },
-    { focused: false, image: [images.img06_075624, images.img06_075800, images.img06_080112] },
-    { focused: false, image: [images.img06_081653, images.img06_084523, images.img06_084555] },
-    { focused: false, image: [images.img06_084803, images.img06_085011, images.img06_085043] },
+    {
+        image: [
+            { id: 'img05_075336', src: images.img05_075336 },
+            { id: 'img05_075408', src: images.img05_075408 },
+            { id: 'img05_075440', src: images.img05_075440 },
+        ],
+    },
+    {
+        image: [
+            { id: 'img05_075941', src: images.img05_075941 },
+            { id: 'img05_082810', src: images.img05_082810 },
+            { id: 'img05_083402', src: images.img05_083402 },
+        ],
+    },
+    {
+        image: [
+            { id: 'img05_091011', src: images.img05_091011 },
+            { id: 'img05_094120', src: images.img05_094120 },
+            { id: 'img05_102720', src: images.img05_102720 },
+        ],
+    },
+    {
+        image: [{ id: 'img05_102752', src: images.img05_102752 }, { id: 'img05_102824', src: images.img05_102824 }, ''],
+    },
+    {
+        image: [
+            { id: 'img06_075312', src: images.img06_075312 },
+            { id: 'img06_075344', src: images.img06_075344 },
+            { id: 'img06_075416', src: images.img06_075416 },
+        ],
+    },
+    {
+        image: [
+            { id: 'img06_075624', src: images.img06_075624 },
+            { id: 'img06_075800', src: images.img06_075800 },
+            { id: 'img06_080112', src: images.img06_080112 },
+        ],
+    },
+    {
+        image: [
+            { id: 'img06_081653', src: images.img06_081653 },
+            { id: 'img06_084523', src: images.img06_084523 },
+            { id: 'img06_084555', src: images.img06_084555 },
+        ],
+    },
+    {
+        image: [
+            { id: 'img06_084803', src: images.img06_084803 },
+            { id: 'img06_085011', src: images.img06_085011 },
+            { id: 'img06_085043', src: images.img06_085043 },
+        ],
+    },
 ]
 
-function Dashboard({ isOpenModal, toggleModal }) {
+function Dashboard({ isOpenModal, savedImage, toggleModal, saveImage }) {
+    const isSaved = (imageId) => {
+        const index = savedImage.findIndex((image) => image.id === imageId)
+        return index > -1
+    }
+
     return (
         <Fragment>
             <Filter />
@@ -35,45 +85,84 @@ function Dashboard({ isOpenModal, toggleModal }) {
                 </div>
                 <div className={cx('container')}>
                     {listImage.map((item, index) => (
-                        <div key={index} className={cx('gallery', item.focused ? 'border-image' : '')}>
-                            <div className={cx('image-wrapper', 'image-wrapper-left')}>
+                        <div key={index} className={cx('gallery')}>
+                            <div
+                                className={cx(
+                                    'image-wrapper',
+                                    'image-wrapper-left',
+                                    isSaved(item.image[0].id) ? ('box-shadow', 'border-image') : '',
+                                )}
+                            >
                                 {item.image[0] && (
-                                    <OverlayImage src={item.image[0]} alt={'prev event image'}>
+                                    <OverlayImage src={item.image[0].src} alt={'prev event image'}>
                                         <div className={cx('img-action')}>
-                                            <span className={cx('icon')}>
-                                                <FontAwesomeIcon icon={faBookmark} />
-                                            </span>
-                                            <span className={cx('icon')}>
-                                                <FontAwesomeIcon icon={faSquareCheck} />
-                                            </span>
+                                            {!isSaved(item.image[0].id) && (
+                                                <Fragment>
+                                                    <span
+                                                        className={cx('icon')}
+                                                        onClick={() => saveImage(item.image[0])}
+                                                    >
+                                                        <FontAwesomeIcon icon={faBookmark} />
+                                                    </span>
+                                                    <span className={cx('icon')}>
+                                                        <FontAwesomeIcon icon={faSquareCheck} />
+                                                    </span>
+                                                </Fragment>
+                                            )}
                                         </div>
                                     </OverlayImage>
                                 )}
                             </div>
-                            <div className={cx('image-wrapper', 'image-wrapper-mid', item.focused ? 'box-shadow' : '')}>
+                            <div
+                                className={cx(
+                                    'image-wrapper',
+                                    'image-wrapper-mid',
+                                    isSaved(item.image[1].id) ? ('box-shadow', 'border-image') : '',
+                                )}
+                            >
                                 {item.image[1] && (
-                                    <OverlayImage src={item.image[1]} alt={'current event image'}>
+                                    <OverlayImage src={item.image[1].src} alt={'current event image'}>
                                         <div className={cx('img-action')}>
-                                            <span className={cx('icon')}>
-                                                <FontAwesomeIcon icon={faBookmark} />
-                                            </span>
-                                            <span className={cx('icon')}>
-                                                <FontAwesomeIcon icon={faSquareCheck} />
-                                            </span>
+                                            {!isSaved(item.image[1].id) && (
+                                                <Fragment>
+                                                    <span
+                                                        className={cx('icon')}
+                                                        onClick={() => saveImage(item.image[1])}
+                                                    >
+                                                        <FontAwesomeIcon icon={faBookmark} />
+                                                    </span>
+                                                    <span className={cx('icon')}>
+                                                        <FontAwesomeIcon icon={faSquareCheck} />
+                                                    </span>
+                                                </Fragment>
+                                            )}
                                         </div>
                                     </OverlayImage>
                                 )}
                             </div>
-                            <div className={cx('image-wrapper', 'image-wrapper-right')}>
+                            <div
+                                className={cx(
+                                    'image-wrapper',
+                                    'image-wrapper-right',
+                                    isSaved(item.image[2].id) ? ('box-shadow', 'border-image') : '',
+                                )}
+                            >
                                 {item.image[2] && (
-                                    <OverlayImage src={item.image[2]} alt={'next event image'}>
+                                    <OverlayImage src={item.image[2].src} alt={'next event image'}>
                                         <div className={cx('img-action')}>
-                                            <span className={cx('icon')}>
-                                                <FontAwesomeIcon icon={faBookmark} />
-                                            </span>
-                                            <span className={cx('icon')}>
-                                                <FontAwesomeIcon icon={faSquareCheck} />
-                                            </span>
+                                            {!isSaved(item.image[2].id) && (
+                                                <Fragment>
+                                                    <span
+                                                        className={cx('icon')}
+                                                        onClick={() => saveImage(item.image[2])}
+                                                    >
+                                                        <FontAwesomeIcon icon={faBookmark} />
+                                                    </span>
+                                                    <span className={cx('icon')}>
+                                                        <FontAwesomeIcon icon={faSquareCheck} />
+                                                    </span>
+                                                </Fragment>
+                                            )}
                                         </div>
                                     </OverlayImage>
                                 )}
@@ -91,7 +180,7 @@ function Dashboard({ isOpenModal, toggleModal }) {
                     }}
                 >
                     <div className={cx('saved-scence-container')} onClick={(e) => e.stopPropagation()}>
-                        <SavedScence listSavedImages={listImage[0].image} />
+                        <SavedScence />
                     </div>
                 </div>
             )}
@@ -101,18 +190,24 @@ function Dashboard({ isOpenModal, toggleModal }) {
 
 Dashboard.propTypes = {
     isOpenModal: PropTypes.bool,
+    savedImage: PropTypes.array,
     toggleModal: PropTypes.func,
+    saveImage: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
     return {
         isOpenModal: state.globalReducer.isOpenModal,
+        savedImage: state.imageReducer.savedImage,
     }
 }
 const mapDisptachToProps = (dispatch) => {
     return {
         toggleModal: (status) => {
             dispatch(actToggleModal(status))
+        },
+        saveImage: (image) => {
+            dispatch(actSaveImage(image))
         },
     }
 }

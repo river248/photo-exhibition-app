@@ -55,18 +55,8 @@
 }
 
 .border-image {
-    & > .image-wrapper {
-        &-left,
-        &-right {
-            width: 25%;
-        }
-
-        &-mid {
-            width: 50%;
-            border: function.pxToRem(4) solid var(--success);
-            box-shadow: var(--box-shadow);
-        }
-    }
+    border: function.pxToRem(4) solid var(--success);
+    box-shadow: var(--box-shadow);
 }
 
 .icon {
