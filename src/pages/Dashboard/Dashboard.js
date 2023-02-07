@@ -29,9 +29,8 @@ function Dashboard() {
     return (
         <Fragment>
             <Filter />
-            <div className={cx('wrapper', 'expand')}>
+            <div className={cx('wrapper')}>
                 <div className={cx('header')}>
-                    <Button className={cx('link')} onClick={() => setOpenModal(true)} title={'Saved scence'} />
                     <h1>Result</h1>
                 </div>
                 <div className={cx('container')}>

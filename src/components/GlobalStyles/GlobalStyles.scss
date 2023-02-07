@@ -61,16 +61,6 @@ a {
     overflow: hidden;
 }
 
-.hide-nav {
-    &.slide-left-right {
-        transform: translateX(calc(function.pxToRem(16) - var(--nav-width)));
-    }
-
-    ~ .expand {
-        padding-left: function.spacing(2.625);
-    }
-}
-
 .label {
     width: function.pxToRem(80);
     flex-shrink: 0;

@@ -1,4 +1,4 @@
-import React, { useId, useRef, useState } from 'react'
+import React, { useId, useRef, useState, Fragment } from 'react'
 import classNames from 'classnames/bind'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,8 +20,8 @@ function Filter() {
     const afterInpRef = useRef()
     const locationInpRef = useRef()
 
-    const [isVisible, setIsVisible] = useState(true)
     const [dateRange, setDateRange] = useState({})
+    const [visibleMore, setVisibleMore] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -32,7 +32,7 @@ function Filter() {
         }
 
         // Handle submit if query is not null
-        if (queryInpRef.current.value && locationInpRef.current.value && !isEmpty(dateRange)) {
+        if (queryInpRef.current.value) {
             data = {
                 ...data,
                 query: queryInpRef.current.value,
@@ -48,35 +48,35 @@ function Filter() {
     }
 
     return (
-        <div className={cx('wrapper', { 'hide-nav slide-left-right': !isVisible })}>
+        <div className={cx('wrapper')}>
             <h1 className={cx('title')}>FILTER</h1>
 
-            <button className={cx('toggle-btn')} onClick={() => setIsVisible(!isVisible)}>
-                <FontAwesomeIcon icon={isVisible ? faChevronLeft : faChevronRight} />
-            </button>
-
             <form id={formId} className={cx('container')} onSubmit={(e) => handleSubmit(e)}>
-                <div className={cx('input-wrapper')}>
-                    <Input
-                        textarea
-                        ref={beforeInpRef}
-                        lblClassName={cx('label')}
-                        label={'Before:'}
-                        placeholder={'Example: I am at home'}
-                    />
-                </div>
-                <div className={cx('input-wrapper')}>
-                    <div className={cx('input-container')}>
-                        <Input
-                            className={cx('time-inp')}
-                            lblClassName={cx('label')}
-                            label={'when:'}
-                            type={'number'}
-                            min={0}
-                        />
-                        <span>hours</span>
-                    </div>
-                </div>
+                {visibleMore && (
+                    <Fragment>
+                        <div className={cx('input-wrapper')}>
+                            <Input
+                                textarea
+                                ref={beforeInpRef}
+                                lblClassName={cx('label')}
+                                label={'Before:'}
+                                placeholder={'Example: I am at home'}
+                            />
+                        </div>
+                        <div className={cx('input-wrapper', 'border-bottom-dash')}>
+                            <div className={cx('input-container')}>
+                                <Input
+                                    className={cx('time-inp')}
+                                    lblClassName={cx('label')}
+                                    label={'when:'}
+                                    type={'number'}
+                                    min={0}
+                                />
+                                <span>hours</span>
+                            </div>
+                        </div>
+                    </Fragment>
+                )}
 
                 <div className={cx('input-wrapper')}>
                     <Input
@@ -106,30 +106,36 @@ function Filter() {
                     />
                 </div>
 
-                <div className={cx('input-wrapper')}>
-                    <Input
-                        textarea
-                        ref={afterInpRef}
-                        lblClassName={cx('label')}
-                        label={'After:'}
-                        placeholder={'Example: I am at home'}
-                    />
-                </div>
-                <div className={cx('input-wrapper')}>
-                    <div className={cx('input-container')}>
-                        <Input
-                            className={cx('time-inp')}
-                            lblClassName={cx('label')}
-                            label={'when:'}
-                            type={'number'}
-                            min={0}
-                        />
-                        <span>hours</span>
-                    </div>
-                </div>
+                {visibleMore && (
+                    <Fragment>
+                        <div className={cx('input-wrapper', 'border-top-dash')}>
+                            <Input
+                                textarea
+                                ref={afterInpRef}
+                                lblClassName={cx('label')}
+                                label={'After:'}
+                                placeholder={'Example: I am at home'}
+                            />
+                        </div>
+                        <div className={cx('input-wrapper')}>
+                            <div className={cx('input-container')}>
+                                <Input
+                                    className={cx('time-inp')}
+                                    lblClassName={cx('label')}
+                                    label={'when:'}
+                                    type={'number'}
+                                    min={0}
+                                />
+                                <span>hours</span>
+                            </div>
+                        </div>
+                    </Fragment>
+                )}
 
-                <Button className={cx('submit-btn')} title={'Submit'} center />
+                <Button className={cx('submit-btn')} title={'Search'} center />
             </form>
+            <Button className={cx('submit-btn')} title={visibleMore ? 'Show less' : 'Show more'} center fullsize onClick={() => setVisibleMore(prev => !prev)} />
+            <Button className={cx('submit-btn', 'link')} title={'Saved scence'} center fullsize />
         </div>
     )
 }

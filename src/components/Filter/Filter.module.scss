@@ -11,10 +11,23 @@
     z-index: 100;
     box-shadow: var(--box-shadow);
     @include classes.glass-background('dark');
-    @include classes.center();
+    @include classes.center('align');
 
     flex-direction: column;
     transition: var(--transition-var);
+
+    .submit-btn {
+        background-color: var(--black-70);
+        margin-top: function.spacing(1);
+        font-weight: 600;
+        font-style: italic;
+        line-height: 1.5;
+        height: function.pxToRem(40);
+    }
+
+    .link {
+        background-color: var(--warning);
+    }
 }
 
 .title {
@@ -27,16 +40,17 @@
     flex-direction: column;
     width: 100%;
 
-    .input-wrapper {
-        &:nth-child(3) {
-            padding-top: function.spacing(2);
-            border-top: function.pxToRem(2) dashed var(--white);
-        }
-        &:nth-child(5) {
-            padding-bottom: function.spacing(2);
-            border-bottom: function.pxToRem(2) dashed var(--white);
-        }
+    .border-bottom-dash {
+        padding-bottom: function.spacing(2);
+        border-bottom: function.pxToRem(2) dashed var(--white);
+    }
 
+    .border-top-dash {
+        padding-top: function.spacing(2);
+        border-top: function.pxToRem(2) dashed var(--white);
+    }
+
+    .input-wrapper {
         + .input-wrapper {
             margin-top: function.spacing(1);
         }
@@ -53,33 +67,5 @@
 
     .time-inp {
         width: function.pxToRem(55);
-    }
-
-    .submit-btn {
-        background-color: var(--black-70);
-        margin-top: function.spacing(1);
-        margin-left: function.spacing(11);
-        font-weight: 600;
-        font-style: italic;
-        line-height: 1.5;
-        height: function.pxToRem(40);
-    }
-}
-
-.toggle-btn {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translate(50%, -50%);
-    width: function.pxToRem(25);
-    height: function.pxToRem(25);
-    @include classes.glass-background('dark');
-    @include classes.center();
-    color: var(--white);
-    border: 0;
-    border-radius: 50%;
-    cursor: pointer;
-    svg {
-        font-size: function.pxToRem(15);
     }
 }
