@@ -5,15 +5,16 @@ import { toast } from 'react-toastify'
 import { format } from 'date-fns'
 import { connect } from 'react-redux'
 
-import styles from './Filter.module.scss'
+import styles from './FilterImages.module.scss'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 import DateTimeInput from '~/components/DateTimeInput'
-import { actToggleModal } from '~/redux/actions/globalAction'
+import { actToggleModal, actFetchAPI } from '~/redux/actions/globalAction'
+import { actGetImages } from '~/redux/actions/imageAction'
 
 const cx = classNames.bind(styles)
 
-function Filter({ toggleModal }) {
+function FilterImages({ toggleModal, getImages, fetchingAPI }) {
     const formId = useId()
     const beforeInpRef = useRef()
     const queryInpRef = useRef()
@@ -25,23 +26,25 @@ function Filter({ toggleModal }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        let data = {
-            previous_event: beforeInpRef.current.value,
-            next_event: afterInpRef.current.value,
+
+        let args = {
+            previous_event: beforeInpRef.current?.value,
+            next_event: afterInpRef.current?.value,
             // time_gap: 12,
         }
 
         // Handle submit if query is not null
         if (queryInpRef.current.value) {
-            data = {
-                ...data,
+            args = {
+                ...args,
                 query: queryInpRef.current.value,
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate,
-                location: locationInpRef.current.value,
+                location: locationInpRef.current?.value,
                 // is_temporal_search: true,
             }
-            console.log(data)
+            fetchingAPI(true)
+            getImages(args)
         } else {
             toast.error('Please fill in "find", "location" and "date time" field!')
         }
@@ -152,8 +155,10 @@ function Filter({ toggleModal }) {
     )
 }
 
-Filter.propTypes = {
+FilterImages.propTypes = {
     toggleModal: PropTypes.func,
+    getImages: PropTypes.func,
+    fetchingAPI: PropTypes.func,
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -161,7 +166,13 @@ const mapDispatchToProps = (dispatch) => {
         toggleModal: (status) => {
             dispatch(actToggleModal(status))
         },
+        getImages: (args) => {
+            dispatch(actGetImages(args))
+        },
+        fetchingAPI: (status) => {
+            dispatch(actFetchAPI(status))
+        },
     }
 }
 
-export default connect(null, mapDispatchToProps)(React.memo(Filter))
+export default connect(null, mapDispatchToProps)(React.memo(FilterImages))
