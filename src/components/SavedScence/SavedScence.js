@@ -24,10 +24,10 @@ function SavedScence({ savedImage, removeSavedImage }) {
 
             <div className={cx('saved-gallery')}>
                 {savedImage.map((image) => (
-                    <div key={image.id} className={cx('saved-gallery-item')}>
+                    <div key={image._id} className={cx('saved-gallery-item')}>
                         <div className={cx('image-wrapper', 'saved-image')}>
-                            <OverlayImage src={image.src} alt={'saved images'}>
-                                <span className={cx('icon')} onClick={() => removeSavedImage(image.id)}>
+                            <OverlayImage src={image._source.image_link} alt={image._source.new_name}>
+                                <span className={cx('icon')} onClick={() => removeSavedImage(image._id)}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </span>
                             </OverlayImage>

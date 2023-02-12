@@ -12,12 +12,13 @@ import FilterImages from '~/components/FilterImages'
 import SavedScence from '~/components/SavedScence'
 import { actToggleModal } from '~/redux/actions/globalAction'
 import { actSaveImage } from '~/redux/actions/imageAction'
+import Loading from '~/components/Loading'
 
 const cx = classNames.bind(styles)
 
 function Dashboard({ isOpenModal, listImages, isFetchingAPI, savedImage, toggleModal, saveImage }) {
-    const isSaved = (imageId) => {
-        const index = savedImage.findIndex((image) => image.id === imageId)
+    const isSaved = (imageArg) => {
+        const index = savedImage.findIndex((image) => image._id === imageArg._id)
         return index > -1
     }
 
@@ -28,26 +29,33 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, savedImage, toggleM
                 <div className={cx('header')}>
                     <h1>Result</h1>
                 </div>
-                {isFetchingAPI && <span>Loading...</span>}
+                {isFetchingAPI && <Loading />}
                 {!isFetchingAPI && !isEmpty(listImages) && (
                     <div className={cx('container')}>
                         {listImages.map((item, index) => (
-                            <div key={index} className={cx('gallery')}>
-                                <div
-                                    className={cx(
-                                        'image-wrapper',
-                                        'image-wrapper-left',
-                                        isSaved(item.image[0].id) ? ('box-shadow', 'border-image') : '',
-                                    )}
-                                >
-                                    {item.image[0] && (
-                                        <OverlayImage src={item.image[0].src} alt={'prev event image'}>
+                            <div
+                                key={index}
+                                className={cx('gallery')}
+                                style={{ width: item.previous_event || item.next_event ? 'calc(1 / 3 * 100%)' : '20%' }}
+                            >
+                                {item.previous_event && (
+                                    <div
+                                        className={cx(
+                                            'image-wrapper',
+                                            'image-wrapper-left',
+                                            isSaved(item.previous_event) ? ('box-shadow', 'border-image') : '',
+                                        )}
+                                    >
+                                        <OverlayImage
+                                            src={item.previous_event._source.image_link}
+                                            alt={item.previous_event._source.new_name}
+                                        >
                                             <div className={cx('img-action')}>
-                                                {!isSaved(item.image[0].id) && (
+                                                {!isSaved(item.previous_event) && (
                                                     <Fragment>
                                                         <span
                                                             className={cx('icon')}
-                                                            onClick={() => saveImage(item.image[0])}
+                                                            onClick={() => saveImage(item.previous_event)}
                                                         >
                                                             <FontAwesomeIcon icon={faBookmark} />
                                                         </span>
@@ -58,62 +66,73 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, savedImage, toggleM
                                                 )}
                                             </div>
                                         </OverlayImage>
-                                    )}
-                                </div>
-                                <div
-                                    className={cx(
-                                        'image-wrapper',
-                                        'image-wrapper-mid',
-                                        isSaved(item.image[1].id) ? ('box-shadow', 'border-image') : '',
-                                    )}
-                                >
-                                    {item.image[1] && (
-                                        <OverlayImage src={item.image[1].src} alt={'current event image'}>
-                                            <div className={cx('img-action')}>
-                                                {!isSaved(item.image[1].id) && (
-                                                    <Fragment>
-                                                        <span
-                                                            className={cx('icon')}
-                                                            onClick={() => saveImage(item.image[1])}
-                                                        >
-                                                            <FontAwesomeIcon icon={faBookmark} />
-                                                        </span>
-                                                        <span className={cx('icon')}>
-                                                            <FontAwesomeIcon icon={faSquareCheck} />
-                                                        </span>
-                                                    </Fragment>
-                                                )}
-                                            </div>
-                                        </OverlayImage>
-                                    )}
-                                </div>
-                                <div
-                                    className={cx(
-                                        'image-wrapper',
-                                        'image-wrapper-right',
-                                        isSaved(item.image[2].id) ? ('box-shadow', 'border-image') : '',
-                                    )}
-                                >
-                                    {item.image[2] && (
-                                        <OverlayImage src={item.image[2].src} alt={'next event image'}>
-                                            <div className={cx('img-action')}>
-                                                {!isSaved(item.image[2].id) && (
-                                                    <Fragment>
-                                                        <span
-                                                            className={cx('icon')}
-                                                            onClick={() => saveImage(item.image[2])}
-                                                        >
-                                                            <FontAwesomeIcon icon={faBookmark} />
-                                                        </span>
-                                                        <span className={cx('icon')}>
-                                                            <FontAwesomeIcon icon={faSquareCheck} />
-                                                        </span>
-                                                    </Fragment>
-                                                )}
-                                            </div>
-                                        </OverlayImage>
-                                    )}
-                                </div>
+                                    </div>
+                                )}
+                                {item.current_event && (
+                                    <div
+                                        className={cx(
+                                            'image-wrapper',
+                                            'image-wrapper-mid',
+                                            isSaved(item.current_event) ? ('box-shadow', 'border-image') : '',
+                                        )}
+                                        style={{ width: item.previous_event || item.next_event ? '40%' : '100%' }}
+                                    >
+                                        {item.current_event && (
+                                            <OverlayImage
+                                                src={item.current_event._source.image_link}
+                                                alt={item.current_event._source.new_name}
+                                            >
+                                                <div className={cx('img-action')}>
+                                                    {!isSaved(item.current_event) && (
+                                                        <Fragment>
+                                                            <span
+                                                                className={cx('icon')}
+                                                                onClick={() => saveImage(item.current_event)}
+                                                            >
+                                                                <FontAwesomeIcon icon={faBookmark} />
+                                                            </span>
+                                                            <span className={cx('icon')}>
+                                                                <FontAwesomeIcon icon={faSquareCheck} />
+                                                            </span>
+                                                        </Fragment>
+                                                    )}
+                                                </div>
+                                            </OverlayImage>
+                                        )}
+                                    </div>
+                                )}
+                                {item.next_event && (
+                                    <div
+                                        className={cx(
+                                            'image-wrapper',
+                                            'image-wrapper-right',
+                                            isSaved(item.next_event) ? ('box-shadow', 'border-image') : '',
+                                        )}
+                                    >
+                                        {item.next_event && (
+                                            <OverlayImage
+                                                src={item.next_event._source.image_link}
+                                                alt={item.next_event._source.new_name}
+                                            >
+                                                <div className={cx('img-action')}>
+                                                    {!isSaved(item.next_event) && (
+                                                        <Fragment>
+                                                            <span
+                                                                className={cx('icon')}
+                                                                onClick={() => saveImage(item.next_event)}
+                                                            >
+                                                                <FontAwesomeIcon icon={faBookmark} />
+                                                            </span>
+                                                            <span className={cx('icon')}>
+                                                                <FontAwesomeIcon icon={faSquareCheck} />
+                                                            </span>
+                                                        </Fragment>
+                                                    )}
+                                                </div>
+                                            </OverlayImage>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>

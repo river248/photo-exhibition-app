@@ -3,8 +3,9 @@
 
 .wrapper {
     min-height: 100vh;
-    padding-left: var(--nav-width);
+    margin-left: var(--nav-width);
     transition: var(--transition-var);
+    position: relative;
 }
 
 .container {
@@ -25,8 +26,7 @@
 }
 
 .gallery {
-    width: calc(1 / 3 * 100%);
-    padding: function.spacing(4);
+    padding: function.spacing(2);
     @include classes.center('align');
     position: relative;
 
@@ -49,7 +49,6 @@
     }
 
     &-mid {
-        width: 40%;
         margin: function.spacing(0, 0.2);
     }
 }
