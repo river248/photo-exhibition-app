@@ -34,6 +34,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                                 {item.previous_event && (
                                     <OverlayImage
                                         border
+                                        hasInformation
                                         type={'add'}
                                         image={item.previous_event._source}
                                         size={'extra-small'}
@@ -42,7 +43,9 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                                 {item.current_event && (
                                     <OverlayImage
                                         border
-                                        spacing={item.previous_event || item.next_event}
+                                        enabledName
+                                        hasInformation
+                                        spacing={(item.previous_event || item.next_event) && true}
                                         type={'add'}
                                         image={item.current_event._source}
                                         size={item.previous_event || item.next_event ? 'small' : 'fullsize'}
@@ -51,6 +54,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                                 {item.next_event && (
                                     <OverlayImage
                                         border
+                                        hasInformation
                                         type={'add'}
                                         image={item.next_event._source}
                                         size={'extra-small'}

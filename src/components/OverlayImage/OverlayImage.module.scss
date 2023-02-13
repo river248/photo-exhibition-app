@@ -2,11 +2,16 @@
 @use 'src/scss/classes';
 
 .wrapper {
-    border-radius: var(--radius);
-    overflow: hidden;
+    position: relative;
+}
+
+.has-information {
+    padding-bottom: function.spacing(7.5);
 }
 
 .container {
+    border-radius: var(--radius);
+    overflow: hidden;
     position: relative;
     width: 100%;
     padding-top: calc(3 / 4 * 100%);
@@ -50,6 +55,28 @@
     backdrop-filter: blur(var(--blur));
     -webkit-backdrop-filter: blur(var(--blur));
     z-index: 1;
+}
+
+.information {
+    padding: function.spacing(1);
+    display: flex;
+    flex-direction: column;
+    font-size: function.pxToRem(14);
+    position: absolute;
+    bottom: 0;
+
+    span {
+        &:nth-child(1) {
+            font-size: function.pxToRem(15);
+            font-weight: 600;
+            font-style: italic;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+        }
+    }
 }
 
 .spacing {

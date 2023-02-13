@@ -5,28 +5,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { connect } from 'react-redux'
+import Tippy from '@tippyjs/react'
+import 'tippy.js/dist/tippy.css'
 
 import styles from './OverlayImage.module.scss'
 import Image from '~/components/Image'
 import { actSaveImage, actRemoveSavedImage } from '~/redux/actions/imageAction'
+import { format } from 'date-fns'
 
 const cx = classNames.bind(styles)
 
-function OverlayImage({ image, spacing, size = 'fullsize', border, type, savedImage, saveImage, removeSavedImage }) {
+function OverlayImage({
+    image,
+    spacing,
+    size = 'fullsize',
+    border,
+    type,
+    enabledName,
+    hasInformation,
+    savedImage,
+    saveImage,
+    removeSavedImage,
+}) {
     const isSaved = () => {
         const index = savedImage.findIndex((item) => item.ImageID === image.ImageID)
         return index > -1
     }
 
     return (
-        <div
-            className={cx(
-                'wrapper',
-                { spacing, [size]: size },
-                isSaved(image) && border ? ('box-shadow', 'border-image') : '',
-            )}
-        >
-            <div className={cx('container')}>
+        <div className={cx('wrapper', { spacing, [size]: size, ['has-information']: hasInformation })}>
+            <div className={cx('container', isSaved(image) && border ? ('box-shadow', 'border-image') : '')}>
                 <Image className={cx('image')} absolute src={image.image_link} alt={image.new_name} />
                 <div className={cx('middle-content')}>
                     {type === 'add' && (
@@ -50,6 +58,16 @@ function OverlayImage({ image, spacing, size = 'fullsize', border, type, savedIm
                     )}
                 </div>
             </div>
+            {enabledName && (
+                <div className={cx('information')}>
+                    <Tippy content={image.new_name} placement={'bottom-start'}>
+                        <span>{image.new_name}</span>
+                    </Tippy>
+
+                    <span>{format(new Date(image.local_time), 'yyyy/MM/dd')}</span>
+                    <span>{image.day_of_week}</span>
+                </div>
+            )}
         </div>
     )
 }
@@ -68,6 +86,8 @@ OverlayImage.propTypes = {
     size: PropTypes.oneOf(['fullsize', 'large', 'middle', 'small', 'extra-small']),
     type: PropTypes.oneOf(['add', 'remove']),
     border: PropTypes.bool,
+    hasInformation: PropTypes.bool,
+    enabledName: PropTypes.bool,
     savedImage: PropTypes.array,
     saveImage: PropTypes.func,
     removeSavedImage: PropTypes.func,
