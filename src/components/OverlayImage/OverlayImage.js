@@ -7,11 +7,11 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { connect } from 'react-redux'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
+import { format } from 'date-fns'
 
 import styles from './OverlayImage.module.scss'
 import Image from '~/components/Image'
 import { actSaveImage, actRemoveSavedImage } from '~/redux/actions/imageAction'
-import { format } from 'date-fns'
 
 const cx = classNames.bind(styles)
 
@@ -63,9 +63,14 @@ function OverlayImage({
                     <Tippy content={image.new_name} placement={'bottom-start'}>
                         <span>{image.new_name}</span>
                     </Tippy>
-
-                    <span>{format(new Date(image.local_time), 'yyyy/MM/dd')}</span>
-                    <span>{image.day_of_week}</span>
+                    <Tippy
+                        content={`${image.day_of_week}, ${format(new Date(image.local_time), 'HH:mm yyyy-MM-dd')}`}
+                        placement={'bottom-start'}
+                    >
+                        <span>
+                            {image.day_of_week}, {format(new Date(image.local_time), 'HH:mm yyyy-MM-dd')}
+                        </span>
+                    </Tippy>
                 </div>
             )}
         </div>

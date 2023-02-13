@@ -9,7 +9,6 @@ import OverlayImage from '~/components/OverlayImage'
 import FilterImages from '~/components/FilterImages'
 import SavedScence from '~/components/SavedScence'
 import { actToggleModal } from '~/redux/actions/globalAction'
-import { actSaveImage } from '~/redux/actions/imageAction'
 import Loading from '~/components/Loading'
 
 const cx = classNames.bind(styles)

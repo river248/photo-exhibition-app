@@ -11,13 +11,13 @@ import Input from '~/components/Input'
 
 const cx = classNames.bind(styles)
 
-function DateTimeInput({ onChange }) {
+function DateTimeInput({ onChange, startDate, endDate, calendarPos }) {
     const ref = useRef(null)
 
     const [dateRange, setDateRange] = useState([
         {
-            startDate: new Date(),
-            endDate: new Date(),
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
             key: 'selection',
         },
     ])
@@ -60,7 +60,7 @@ function DateTimeInput({ onChange }) {
                 />
             </div>
             {isShowTimePicker && (
-                <div className={cx('calendar-wrapper')}>
+                <div className={cx('calendar-wrapper', { [calendarPos]: calendarPos })}>
                     <DateRange
                         className={cx('calendar')}
                         ranges={dateRange}
@@ -81,6 +81,9 @@ function DateTimeInput({ onChange }) {
 
 DateTimeInput.propTypes = {
     onChange: PropTypes.func,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    calendarPos: PropTypes.oneOf(['bottom', 'top']),
 }
 
 export default React.memo(DateTimeInput)

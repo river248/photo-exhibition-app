@@ -21,7 +21,7 @@ function FilterImages({ toggleModal, getImages, fetchingAPI }) {
     const afterInpRef = useRef()
     const locationInpRef = useRef()
 
-    const [dateRange, setDateRange] = useState({})
+    const [dateRange, setDateRange] = useState({ startDate: '2019-01-01', endDate: '2020-06-30' })
     const [visibleMore, setVisibleMore] = useState(false)
 
     const handleSubmit = (e) => {
@@ -52,7 +52,7 @@ function FilterImages({ toggleModal, getImages, fetchingAPI }) {
 
     return (
         <div className={cx('wrapper')}>
-            <h1 className={cx('title')}>FILTER</h1>
+            <h1 className={cx('title')}>MemoriEase</h1>
 
             <form id={formId} className={cx('container')} onSubmit={(e) => handleSubmit(e)}>
                 {visibleMore && (
@@ -106,6 +106,9 @@ function FilterImages({ toggleModal, getImages, fetchingAPI }) {
                                 endDate: format(value.endDate, 'yyyy-MM-dd'),
                             })
                         }
+                        startDate={'2019-01-01'}
+                        endDate={'2020-06-30'}
+                        calendarPos={visibleMore ? 'top' : 'bottom'}
                     />
                 </div>
 
