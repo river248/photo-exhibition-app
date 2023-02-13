@@ -3005,11 +3005,16 @@ export const listResult = [
     },
 ]
 
-export const fakeRequest = async () => {
+export const fakeRequest = async (params) => {
+    let dataResponse = listResult
+    if (params.previous_event || params.next_event) {
+        dataResponse = listResultFull
+    }
+
     return new Promise((resolve, reject) => {
         const wait = setTimeout(() => {
             clearTimeout(wait)
-            resolve({ data: listResult })
+            resolve({ data: dataResponse })
         }, 2000)
     })
 }

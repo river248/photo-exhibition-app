@@ -9,7 +9,7 @@ export const fetchAPI = async (args) => {
     try {
         // const res = await axios.post(`${API_ROOT}/path`, args)
         console.log(args)
-        const res = await fakeRequest()
+        const res = await fakeRequest(args)
 
         return res.data
     } catch (error) {

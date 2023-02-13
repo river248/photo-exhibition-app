@@ -42,32 +42,6 @@
     }
 }
 
-.image-wrapper {
-    &-left,
-    &-right {
-        width: 30%;
-    }
-
-    &-mid {
-        margin: function.spacing(0, 0.2);
-    }
-}
-
-.border-image {
-    border: function.pxToRem(4) solid var(--success);
-    box-shadow: var(--box-shadow);
-}
-
-.icon {
-    font-size: function.pxToRem(25);
-    cursor: pointer;
-    color: var(--white);
-
-    + .icon {
-        margin-left: function.spacing(2);
-    }
-}
-
 .saved-scence {
     &-wrapper {
         position: fixed;

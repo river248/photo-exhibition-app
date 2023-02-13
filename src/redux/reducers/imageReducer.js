@@ -24,7 +24,7 @@ const imageReducer = (state = initialState, action) => {
             }
         case REMOVE_SAVED_IMAGE:
             const cloneRemoveSavedImage = cloneDeep(state.savedImage)
-            const index = cloneRemoveSavedImage.findIndex((image) => image._id === action.payload)
+            const index = cloneRemoveSavedImage.findIndex((image) => image.ImageID === action.payload)
             cloneRemoveSavedImage.splice(index, 1)
 
             return {

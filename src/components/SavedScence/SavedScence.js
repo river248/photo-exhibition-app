@@ -2,16 +2,15 @@ import React from 'react'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark, faTrashCan } from '@fortawesome/free-regular-svg-icons'
+import { faBookmark } from '@fortawesome/free-regular-svg-icons'
 import { connect } from 'react-redux'
 
 import styles from './SavedScence.module.scss'
 import OverlayImage from '~/components/OverlayImage'
-import { actRemoveSavedImage } from '~/redux/actions/imageAction'
 
 const cx = classNames.bind(styles)
 
-function SavedScence({ savedImage, removeSavedImage }) {
+function SavedScence({ savedImage }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('title')}>
@@ -24,14 +23,8 @@ function SavedScence({ savedImage, removeSavedImage }) {
 
             <div className={cx('saved-gallery')}>
                 {savedImage.map((image) => (
-                    <div key={image._id} className={cx('saved-gallery-item')}>
-                        <div className={cx('image-wrapper', 'saved-image')}>
-                            <OverlayImage src={image._source.image_link} alt={image._source.new_name}>
-                                <span className={cx('icon')} onClick={() => removeSavedImage(image._id)}>
-                                    <FontAwesomeIcon icon={faTrashCan} />
-                                </span>
-                            </OverlayImage>
-                        </div>
+                    <div key={image.ImageID} className={cx('saved-gallery-item')}>
+                        <OverlayImage type={'remove'} image={image} />
                     </div>
                 ))}
             </div>
@@ -49,12 +42,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDisptachToProps = (dispatch) => {
-    return {
-        removeSavedImage: (imageId) => {
-            dispatch(actRemoveSavedImage(imageId))
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDisptachToProps)(React.memo(SavedScence))
+export default connect(mapStateToProps, null)(React.memo(SavedScence))
