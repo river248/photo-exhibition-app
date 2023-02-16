@@ -49,6 +49,20 @@ body {
     font-family: Roboto, Arial, Helvetica, sans-serif;
     letter-spacing: 0.00938em;
     color: var(--white);
+
+    &::-webkit-scrollbar-thumb {
+        @include classes.glass-background('dark');
+        border-radius: var(--radius);
+    }
+
+    &::-webkit-scrollbar-track {
+        @include classes.glass-background();
+        border-radius: var(--radius);
+    }
+
+    &::-webkit-scrollbar {
+        width: function.pxToRem(8);
+    }
 }
 
 a {

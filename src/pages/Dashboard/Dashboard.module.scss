@@ -6,6 +6,7 @@
     margin-left: var(--nav-width);
     transition: var(--transition-var);
     position: relative;
+    padding-bottom: function.spacing(7);
 }
 
 .container {

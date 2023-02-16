@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -10,10 +10,36 @@ import FilterImages from '~/components/FilterImages'
 import SavedScence from '~/components/SavedScence'
 import { actToggleModal } from '~/redux/actions/globalAction'
 import Loading from '~/components/Loading'
+import Pagination from '~/components/Pagination'
 
 const cx = classNames.bind(styles)
 
 function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
+    const [page, setPage] = useState(0)
+
+    const listImagesByPage = useMemo(() => {
+        let result = { listImages, numberPage: 0 }
+
+        if (!isEmpty(listImages)) {
+            const MAX_ITEM = 12
+            const begin = (page - 1) * MAX_ITEM
+            const end = page * MAX_ITEM
+            const item = listImages.slice(begin, end)
+
+            const numberPage = Math.ceil(listImages.length / MAX_ITEM)
+
+            result = { listImages: item, numberPage }
+        }
+
+        return result
+    }, [listImages, page])
+
+    useEffect(() => {
+        if (!isEmpty(listImages)) {
+            setPage(1)
+        }
+    }, [listImages])
+
     return (
         <Fragment>
             <FilterImages />
@@ -22,9 +48,9 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                     <h1>Result</h1>
                 </div>
                 {isFetchingAPI && <Loading />}
-                {!isFetchingAPI && !isEmpty(listImages) && (
+                {!isFetchingAPI && !isEmpty(listImagesByPage) && (
                     <div className={cx('container')}>
-                        {listImages.map((item, index) => (
+                        {listImagesByPage.listImages.map((item, index) => (
                             <div
                                 key={index}
                                 className={cx('gallery')}
@@ -62,6 +88,14 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                             </div>
                         ))}
                     </div>
+                )}
+                {page > 0 && (
+                    <Pagination
+                        absolute
+                        numberPage={listImagesByPage.numberPage}
+                        currentPage={page}
+                        onChange={(value) => setPage(value)}
+                    />
                 )}
             </div>
 
