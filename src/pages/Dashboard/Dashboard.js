@@ -25,7 +25,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, similarImages, togg
 
         if (!isEmpty(listImages)) {
             const isMoreThanOne = listImages.find((item) => item.previous_event || item.next_event)
-            const MAX_ITEM = isMoreThanOne ? 12 : 15
+            const MAX_ITEM = isMoreThanOne ? 12 : 28
             const begin = (page - 1) * MAX_ITEM
             const end = page * MAX_ITEM
             const item = listImages.slice(begin, end)
@@ -58,7 +58,12 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, similarImages, togg
                             <div
                                 key={index}
                                 className={cx('gallery')}
-                                style={{ width: item.previous_event || item.next_event ? 'calc(1 / 3 * 100%)' : '20%' }}
+                                style={{
+                                    width:
+                                        item.previous_event || item.next_event
+                                            ? 'calc(1 / 3 * 100%)'
+                                            : 'calc(1 / 7 * 100%)',
+                                }}
                             >
                                 {item.previous_event && (
                                     <OverlayImage

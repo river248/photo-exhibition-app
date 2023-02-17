@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash'
 
-import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE, GET_SIMILAR_IMAGES } from '~/redux/types/image'
+import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE, GET_SIMILAR_IMAGES, CLEAR_SAVED_IMAGES } from '~/redux/types/image'
 
 const initialState = {
     listImages: [],
@@ -26,6 +26,11 @@ const imageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 savedImage: cloneSavedImage,
+            }
+        case CLEAR_SAVED_IMAGES:
+            return {
+                ...state,
+                savedImage: action.payload,
             }
 
         case REMOVE_SAVED_IMAGE:

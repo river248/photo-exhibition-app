@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import { format } from 'date-fns'
+import { toast } from 'react-toastify'
 
 import styles from './OverlayImage.module.scss'
 import Image from '~/components/Image'
@@ -64,6 +65,7 @@ function OverlayImage({
                                     <span
                                         className={cx('icon')}
                                         onClick={(e) => {
+                                            toast.success('Submit sucessfully!')
                                             e.stopPropagation()
                                         }}
                                     >

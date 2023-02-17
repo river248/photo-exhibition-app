@@ -1,6 +1,6 @@
 import { actFetchAPI } from './globalAction'
 import { fetchAPI } from '~/apis'
-import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE, GET_SIMILAR_IMAGES } from '~/redux/types/image'
+import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE, GET_SIMILAR_IMAGES, CLEAR_SAVED_IMAGES } from '~/redux/types/image'
 
 export const getImages = (images) => {
     return {
@@ -31,6 +31,13 @@ export const actSaveImage = (image) => {
     return {
         type: SAVE_IMAGE,
         payload: image,
+    }
+}
+
+export const actClearSavedImage = () => {
+    return {
+        type: CLEAR_SAVED_IMAGES,
+        payload: [],
     }
 }
 
