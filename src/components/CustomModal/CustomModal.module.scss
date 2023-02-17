@@ -1,0 +1,19 @@
+@use 'src/scss/function';
+@use 'src/scss/classes';
+
+.wrapper {
+    position: fixed;
+    z-index: 150;
+    @include classes.center();
+    inset: 0;
+}
+
+.container {
+    width: 80vw;
+    height: 80vh;
+    overflow-y: auto;
+    background-color: var(--white);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--radius);
+    padding: function.spacing(2, 0);
+}

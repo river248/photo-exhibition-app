@@ -81,3 +81,12 @@ a {
     font-style: italic;
     font-weight: 600;
 }
+
+.title {
+    height: var(--header-height);
+    @include classes.center();
+    font-size: function.pxToRem(25);
+    color: var(--black);
+    font-weight: 600;
+    font-style: italic;
+}

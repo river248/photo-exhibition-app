@@ -11,7 +11,7 @@ import { format } from 'date-fns'
 
 import styles from './OverlayImage.module.scss'
 import Image from '~/components/Image'
-import { actSaveImage, actRemoveSavedImage } from '~/redux/actions/imageAction'
+import { actSaveImage, actRemoveSavedImage, actGetSimilarImages } from '~/redux/actions/imageAction'
 
 const cx = classNames.bind(styles)
 
@@ -23,28 +23,50 @@ function OverlayImage({
     type,
     enabledName,
     hasInformation,
+    hasPopup = false,
     savedImage,
     saveImage,
     removeSavedImage,
+    getSimilarImages,
 }) {
     const isSaved = () => {
         const index = savedImage.findIndex((item) => item.ImageID === image.ImageID)
         return index > -1
     }
 
+    const handleClickImage = (data) => {
+        if (hasPopup) {
+            getSimilarImages(data, true)
+        }
+    }
+
     return (
         <div className={cx('wrapper', { spacing, [size]: size, ['has-information']: hasInformation })}>
-            <div className={cx('container', isSaved(image) && border ? ('box-shadow', 'border-image') : '')}>
+            <div
+                className={cx('container', isSaved(image) && border ? ('box-shadow', 'border-image') : '')}
+                onClick={() => handleClickImage(image.similar_images)}
+            >
                 <Image className={cx('image')} absolute src={image.image_link} alt={image.new_name} />
                 <div className={cx('middle-content')}>
                     {type === 'add' && (
                         <Fragment>
                             {!isSaved(image) && (
                                 <div className={cx('img-action')}>
-                                    <span className={cx('icon')} onClick={() => saveImage(image)}>
+                                    <span
+                                        className={cx('icon')}
+                                        onClick={(e) => {
+                                            saveImage(image)
+                                            e.stopPropagation()
+                                        }}
+                                    >
                                         <FontAwesomeIcon icon={faBookmark} />
                                     </span>
-                                    <span className={cx('icon')}>
+                                    <span
+                                        className={cx('icon')}
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                        }}
+                                    >
                                         <FontAwesomeIcon icon={faSquareCheck} />
                                     </span>
                                 </div>
@@ -92,10 +114,12 @@ OverlayImage.propTypes = {
     type: PropTypes.oneOf(['add', 'remove']),
     border: PropTypes.bool,
     hasInformation: PropTypes.bool,
+    hasPopup: PropTypes.bool,
     enabledName: PropTypes.bool,
     savedImage: PropTypes.array,
     saveImage: PropTypes.func,
     removeSavedImage: PropTypes.func,
+    getSimilarImages: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
@@ -111,6 +135,9 @@ const mapDisptachToProps = (dispatch) => {
         },
         removeSavedImage: (imageId) => {
             dispatch(actRemoveSavedImage(imageId))
+        },
+        getSimilarImages: (images, isOpenPopup) => {
+            dispatch(actGetSimilarImages(images, isOpenPopup))
         },
     }
 }

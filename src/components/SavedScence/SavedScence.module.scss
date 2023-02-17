@@ -6,15 +6,6 @@
     color: var(--error);
 }
 
-.title {
-    height: var(--header-height);
-    @include classes.center();
-    font-size: function.pxToRem(25);
-    color: var(--black);
-    font-weight: 600;
-    font-style: italic;
-}
-
 .bookmark {
     margin-left: function.spacing(1);
     position: relative;

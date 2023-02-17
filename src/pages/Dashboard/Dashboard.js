@@ -11,17 +11,21 @@ import SavedScence from '~/components/SavedScence'
 import { actToggleModal } from '~/redux/actions/globalAction'
 import Loading from '~/components/Loading'
 import Pagination from '~/components/Pagination'
+import { actGetSimilarImages } from '~/redux/actions/imageAction'
+import SimilarImages from '~/components/SimilarImages'
+import CustomModal from '~/components/CustomModal'
 
 const cx = classNames.bind(styles)
 
-function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
+function Dashboard({ isOpenModal, listImages, isFetchingAPI, similarImages, toggleModal, clearSimilarImages }) {
     const [page, setPage] = useState(0)
 
     const listImagesByPage = useMemo(() => {
         let result = { listImages, numberPage: 0 }
 
         if (!isEmpty(listImages)) {
-            const MAX_ITEM = 12
+            const isMoreThanOne = listImages.find((item) => item.previous_event || item.next_event)
+            const MAX_ITEM = isMoreThanOne ? 12 : 15
             const begin = (page - 1) * MAX_ITEM
             const end = page * MAX_ITEM
             const item = listImages.slice(begin, end)
@@ -58,6 +62,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                             >
                                 {item.previous_event && (
                                     <OverlayImage
+                                        hasPopup
                                         border
                                         hasInformation
                                         type={'add'}
@@ -67,6 +72,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                                 )}
                                 {item.current_event && (
                                     <OverlayImage
+                                        hasPopup
                                         border
                                         enabledName
                                         hasInformation
@@ -78,6 +84,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                                 )}
                                 {item.next_event && (
                                     <OverlayImage
+                                        hasPopup
                                         border
                                         hasInformation
                                         type={'add'}
@@ -89,7 +96,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                         ))}
                     </div>
                 )}
-                {page > 0 && (
+                {page > 0 && !isFetchingAPI && (
                     <Pagination
                         absolute
                         numberPage={listImagesByPage.numberPage}
@@ -99,18 +106,13 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, toggleModal }) {
                 )}
             </div>
 
-            {isOpenModal && (
-                <div
-                    className={cx('saved-scence-wrapper')}
-                    onClick={() => {
-                        toggleModal(false)
-                    }}
-                >
-                    <div className={cx('saved-scence-container')} onClick={(e) => e.stopPropagation()}>
-                        <SavedScence />
-                    </div>
-                </div>
-            )}
+            <CustomModal isOpenModal={isOpenModal} onClose={() => toggleModal(false)}>
+                <SavedScence />
+            </CustomModal>
+
+            <CustomModal isOpenModal={similarImages.isOpenPopup} onClose={() => clearSimilarImages()}>
+                <SimilarImages images={similarImages.images} />
+            </CustomModal>
         </Fragment>
     )
 }
@@ -119,7 +121,12 @@ Dashboard.propTypes = {
     isOpenModal: PropTypes.bool,
     listImages: PropTypes.array,
     isFetchingAPI: PropTypes.bool,
+    similarImages: PropTypes.shape({
+        isOpenModal: PropTypes.bool,
+        images: PropTypes.arrayOf(PropTypes.string),
+    }),
     toggleModal: PropTypes.func,
+    clearSimilarImages: PropTypes.func,
 }
 
 const mapStateToProps = (state) => {
@@ -127,12 +134,16 @@ const mapStateToProps = (state) => {
         isOpenModal: state.globalReducer.isOpenModal,
         listImages: state.imageReducer.listImages,
         isFetchingAPI: state.globalReducer.isFetchingAPI,
+        similarImages: state.imageReducer.similarImages,
     }
 }
 const mapDisptachToProps = (dispatch) => {
     return {
         toggleModal: (status) => {
             dispatch(actToggleModal(status))
+        },
+        clearSimilarImages: () => {
+            dispatch(actGetSimilarImages([], false))
         },
     }
 }

@@ -1,6 +1,6 @@
 import { actFetchAPI } from './globalAction'
 import { fetchAPI } from '~/apis'
-import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE } from '~/redux/types/image'
+import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE, GET_SIMILAR_IMAGES } from '~/redux/types/image'
 
 export const getImages = (images) => {
     return {
@@ -20,6 +20,13 @@ export const actGetImages = (args) => {
 }
 
 // =================================================================================================
+export const actGetSimilarImages = (images, isOpenPopup) => {
+    return {
+        type: GET_SIMILAR_IMAGES,
+        payload: { images, isOpenPopup },
+    }
+}
+
 export const actSaveImage = (image) => {
     return {
         type: SAVE_IMAGE,

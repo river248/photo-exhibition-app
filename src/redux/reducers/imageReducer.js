@@ -1,10 +1,14 @@
 import { cloneDeep } from 'lodash'
 
-import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE } from '~/redux/types/image'
+import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE, GET_SIMILAR_IMAGES } from '~/redux/types/image'
 
 const initialState = {
     listImages: [],
     savedImage: [],
+    similarImages: {
+        isOpenPopup: false,
+        images: [],
+    },
 }
 
 const imageReducer = (state = initialState, action) => {
@@ -14,6 +18,7 @@ const imageReducer = (state = initialState, action) => {
                 ...state,
                 listImages: action.payload,
             }
+
         case SAVE_IMAGE:
             const cloneSavedImage = cloneDeep(state.savedImage)
             cloneSavedImage.push(action.payload)
@@ -22,6 +27,7 @@ const imageReducer = (state = initialState, action) => {
                 ...state,
                 savedImage: cloneSavedImage,
             }
+
         case REMOVE_SAVED_IMAGE:
             const cloneRemoveSavedImage = cloneDeep(state.savedImage)
             const index = cloneRemoveSavedImage.findIndex((image) => image.ImageID === action.payload)
@@ -30,6 +36,12 @@ const imageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 savedImage: cloneRemoveSavedImage,
+            }
+
+        case GET_SIMILAR_IMAGES:
+            return {
+                ...state,
+                similarImages: action.payload,
             }
         default:
             return { ...state }
