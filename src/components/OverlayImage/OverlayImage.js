@@ -36,7 +36,7 @@ function OverlayImage({
     }
 
     const handleClickImage = (data) => {
-        if (hasPopup) {
+        if (hasPopup && data) {
             getSimilarImages(data, true)
         }
     }
@@ -84,9 +84,11 @@ function OverlayImage({
             </div>
             {enabledName && (
                 <div className={cx('information')}>
-                    <Tippy content={image.new_name} placement={'bottom-start'}>
-                        <span>{image.new_name}</span>
-                    </Tippy>
+                    {image.new_name && (
+                        <Tippy content={image.new_name} placement={'bottom-start'}>
+                            <span>{image.new_name}</span>
+                        </Tippy>
+                    )}
                     <Tippy
                         content={`${image.day_of_week}, ${format(new Date(image.local_time), 'HH:mm yyyy-MM-dd')}`}
                         placement={'bottom-start'}
@@ -104,10 +106,10 @@ function OverlayImage({
 OverlayImage.propTypes = {
     image: PropTypes.shape({
         ImageID: PropTypes.string.isRequired,
-        new_name: PropTypes.string.isRequired,
-        event_id: PropTypes.number.isRequired,
-        local_time: PropTypes.string.isRequired,
-        day_of_week: PropTypes.string.isRequired,
+        new_name: PropTypes.string,
+        event_id: PropTypes.number,
+        local_time: PropTypes.string,
+        day_of_week: PropTypes.string,
         image_link: PropTypes.string.isRequired,
         similar_images: PropTypes.array,
     }),

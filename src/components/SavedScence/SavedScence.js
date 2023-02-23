@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookmark } from '@fortawesome/free-regular-svg-icons'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
+import { isEmpty } from 'lodash'
 
 import styles from './SavedScence.module.scss'
 import OverlayImage from '~/components/OverlayImage'
@@ -40,7 +41,13 @@ function SavedScence({ savedImage, clearSaveImage, toggleModal }) {
                 ))}
             </div>
 
-            <Button className={cx('submit-btn')} title={'Submit'} center onClick={handleSubmit} />
+            <Button
+                className={cx('submit-btn')}
+                disabled={isEmpty(savedImage)}
+                title={'Submit'}
+                center
+                onClick={handleSubmit}
+            />
         </div>
     )
 }
