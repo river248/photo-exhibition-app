@@ -7,12 +7,13 @@ import { faTrashCan } from '@fortawesome/free-regular-svg-icons'
 import { connect } from 'react-redux'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
-import { format } from 'date-fns'
+import { format, getDay } from 'date-fns'
 import { toast } from 'react-toastify'
 
 import styles from './OverlayImage.module.scss'
 import Image from '~/components/Image'
 import { actSaveImage, actRemoveSavedImage, actGetSimilarImages } from '~/redux/actions/imageAction'
+import { dayOfWeek } from '~/utils/constants'
 
 const cx = classNames.bind(styles)
 
@@ -24,6 +25,7 @@ function OverlayImage({
     type,
     enabledName,
     hasInformation,
+    inforClassName,
     hasPopup = false,
     savedImage,
     saveImage,
@@ -37,7 +39,36 @@ function OverlayImage({
 
     const handleClickImage = (data) => {
         if (hasPopup && data) {
-            getSimilarImages(data, true)
+            const prefix = 'http://lifeseeker-sv.computing.dcu.ie/'
+            const ext = '.webp'
+
+            const arr = data.map((link) => {
+                const relativePath = link.split(prefix)[1].split(ext)[0].split('/')
+                const ImageID = relativePath[2]
+                const getDate = ImageID.split('_')[0]
+                const getTime = ImageID.split('_')[1]
+
+                const year = getDate.substring(0, 4)
+                const month = getDate.substring(4, 6)
+                const day = getDate.substring(6, 8)
+                const hour = getTime.substring(0, 2)
+                const minute = getTime.substring(2, 4)
+
+                const similarImage = {
+                    ImageID: `${ImageID}.jpg`,
+                    new_name: '',
+                    event_id: null,
+                    local_time: `${year}-${month}-${day}T${hour}:${minute}:00`,
+                    day_of_week: dayOfWeek[getDay(new Date(`${year}-${month}-${day}T${hour}:${minute}:00`))],
+                    image_link: link,
+                }
+
+                return similarImage
+            })
+
+            console.log(arr)
+
+            getSimilarImages(arr, true)
         }
     }
 
@@ -83,7 +114,7 @@ function OverlayImage({
                 </div>
             </div>
             {enabledName && (
-                <div className={cx('information')}>
+                <div className={cx('information', { [inforClassName]: inforClassName })}>
                     {image.new_name && (
                         <Tippy content={image.new_name} placement={'bottom-start'}>
                             <span>{image.new_name}</span>
@@ -118,6 +149,7 @@ OverlayImage.propTypes = {
     type: PropTypes.oneOf(['add', 'remove']),
     border: PropTypes.bool,
     hasInformation: PropTypes.bool,
+    inforClassName: PropTypes.string,
     hasPopup: PropTypes.bool,
     enabledName: PropTypes.bool,
     savedImage: PropTypes.array,

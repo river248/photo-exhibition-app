@@ -26,3 +26,8 @@
     font-size: function.pxToRem(18);
     margin-top: function.spacing(4);
 }
+
+.information {
+    color: var(--black);
+    bottom: function.spacing(1.5);
+}

@@ -128,7 +128,16 @@ Dashboard.propTypes = {
     isFetchingAPI: PropTypes.bool,
     similarImages: PropTypes.shape({
         isOpenModal: PropTypes.bool,
-        images: PropTypes.arrayOf(PropTypes.string),
+        images: PropTypes.arrayOf(
+            PropTypes.shape({
+                ImageID: PropTypes.string.isRequired,
+                new_name: PropTypes.string,
+                event_id: PropTypes.string,
+                local_time: PropTypes.string.isRequired,
+                day_of_week: PropTypes.string.isRequired,
+                image_link: PropTypes.string.isRequired,
+            }),
+        ),
     }),
     toggleModal: PropTypes.func,
     clearSimilarImages: PropTypes.func,

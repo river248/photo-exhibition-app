@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
 
 import styles from './SimilarImages.module.scss'
-import Image from '~/components/Image'
+import OverlayImage from '~/components/OverlayImage'
 
 const cx = classNames.bind(styles)
 
@@ -18,9 +18,15 @@ function SimilarImages({ images }) {
                     <Fragment>
                         {images.map((item, index) => (
                             <div key={index} className={cx('container-item')}>
-                                <div className={cx('image-wrapper')}>
-                                    <Image absolute src={item} alt={'similar image'} />
-                                </div>
+                                <OverlayImage
+                                    inforClassName={cx('information')}
+                                    border
+                                    enabledName
+                                    hasInformation
+                                    type={'add'}
+                                    image={item}
+                                    size={'fullsize'}
+                                />
                             </div>
                         ))}
                     </Fragment>
@@ -33,7 +39,16 @@ function SimilarImages({ images }) {
 }
 
 SimilarImages.propTypes = {
-    images: PropTypes.arrayOf(PropTypes.string),
+    images: PropTypes.arrayOf(
+        PropTypes.shape({
+            ImageID: PropTypes.string.isRequired,
+            new_name: PropTypes.string,
+            event_id: PropTypes.string,
+            local_time: PropTypes.string.isRequired,
+            day_of_week: PropTypes.string.isRequired,
+            image_link: PropTypes.string.isRequired,
+        }),
+    ),
 }
 
 export default SimilarImages
