@@ -1,6 +1,6 @@
 import { IS_FETCHING_API, TOGGLE_MODAL } from '~/redux/types/global'
 
-export const actFetchAPI = (status) => {
+export const actFetchingAPI = (status) => {
     return {
         type: IS_FETCHING_API,
         payload: status,

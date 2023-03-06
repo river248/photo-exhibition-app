@@ -9,7 +9,7 @@ import styles from './FilterImages.module.scss'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 import DateTimeInput from '~/components/DateTimeInput'
-import { actToggleModal, actFetchAPI } from '~/redux/actions/globalAction'
+import { actToggleModal, actFetchingAPI } from '~/redux/actions/globalAction'
 import { actGetImages } from '~/redux/actions/imageAction'
 
 const cx = classNames.bind(styles)
@@ -30,7 +30,7 @@ function FilterImages({ toggleModal, getImages, fetchingAPI }) {
         let args = {
             previous_event: beforeInpRef.current?.value,
             next_event: afterInpRef.current?.value,
-            // time_gap: 12,
+            time_gap: 1,
         }
 
         // Handle submit if query is not null
@@ -40,8 +40,7 @@ function FilterImages({ toggleModal, getImages, fetchingAPI }) {
                 query: queryInpRef.current.value,
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate,
-                location: locationInpRef.current?.value,
-                // is_temporal_search: true,
+                location: locationInpRef.current?.value || '',
             }
             fetchingAPI(true)
             getImages(args)
@@ -169,11 +168,11 @@ const mapDispatchToProps = (dispatch) => {
         toggleModal: (status) => {
             dispatch(actToggleModal(status))
         },
-        getImages: (args) => {
-            dispatch(actGetImages(args))
+        getImages: (apiKey, body, isCurrentEvent) => {
+            dispatch(actGetImages(apiKey, body, isCurrentEvent))
         },
         fetchingAPI: (status) => {
-            dispatch(actFetchAPI(status))
+            dispatch(actFetchingAPI(status))
         },
     }
 }

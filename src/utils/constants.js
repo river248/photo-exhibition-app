@@ -1,4 +1,4 @@
-export const API_ROOT = 'http://localhost:8080/'
+export const API_ROOT = 'http://localhost:8080'
 export const dayOfWeek = {
     0: 'Sunday',
     1: 'Monday',

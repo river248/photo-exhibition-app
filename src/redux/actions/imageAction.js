@@ -1,5 +1,5 @@
-import { actFetchAPI } from './globalAction'
-import { fetchAPI } from '~/apis'
+import { actFetchingAPI } from './globalAction'
+import { fetchCurentEvent } from '~/apis'
 import { GET_IMAGES, SAVE_IMAGE, REMOVE_SAVED_IMAGE, GET_SIMILAR_IMAGES, CLEAR_SAVED_IMAGES } from '~/redux/types/image'
 
 export const getImages = (images) => {
@@ -9,13 +9,14 @@ export const getImages = (images) => {
     }
 }
 
-export const actGetImages = (args) => {
+export const actGetImages = (apiKey, body) => {
     return async (dispatch) => {
-        const res = await fetchAPI(args)
+        const res = await fetchCurentEvent(apiKey, body)
+
         if (res) {
             dispatch(getImages(res))
         }
-        dispatch(actFetchAPI(false))
+        dispatch(actFetchingAPI(false))
     }
 }
 
