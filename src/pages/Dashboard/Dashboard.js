@@ -65,7 +65,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, similarImages, togg
                                             : 'calc(1 / 7 * 100%)',
                                 }}
                             >
-                                {item.previous_event._id && (
+                                {item.previous_event?._id && (
                                     <OverlayImage
                                         hasPopup
                                         border
@@ -87,7 +87,7 @@ function Dashboard({ isOpenModal, listImages, isFetchingAPI, similarImages, togg
                                         size={item.previous_event || item.next_event ? 'small' : 'fullsize'}
                                     />
                                 )}
-                                {item.next_event._id && (
+                                {item.next_event?._id && (
                                     <OverlayImage
                                         hasPopup
                                         border
