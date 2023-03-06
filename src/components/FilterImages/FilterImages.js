@@ -27,7 +27,7 @@ function FilterImages({ toggleModal, getImages, fetchingAPI }) {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        let args = {
+        let body = {
             previous_event: beforeInpRef.current?.value,
             next_event: afterInpRef.current?.value,
             time_gap: 1,
@@ -35,15 +35,15 @@ function FilterImages({ toggleModal, getImages, fetchingAPI }) {
 
         // Handle submit if query is not null
         if (queryInpRef.current.value) {
-            args = {
-                ...args,
+            body = {
+                ...body,
                 query: queryInpRef.current.value,
                 start_date: dateRange.startDate,
                 end_date: dateRange.endDate,
                 location: locationInpRef.current?.value || '',
             }
             fetchingAPI(true)
-            getImages(args)
+            getImages(1234, body)
         } else {
             toast.error('Please fill in "find", "location" and "date time" field!')
         }
@@ -168,8 +168,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleModal: (status) => {
             dispatch(actToggleModal(status))
         },
-        getImages: (apiKey, body, isCurrentEvent) => {
-            dispatch(actGetImages(apiKey, body, isCurrentEvent))
+        getImages: (apiKey, body) => {
+            dispatch(actGetImages(apiKey, body))
         },
         fetchingAPI: (status) => {
             dispatch(actFetchingAPI(status))
