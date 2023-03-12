@@ -16,4 +16,15 @@
     box-shadow: var(--box-shadow);
     border-radius: var(--radius);
     padding: function.spacing(2, 0);
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: function.spacing(2);
+    right: function.spacing(2);
+    color: var(--black);
+    background-color: var(--black-30);
+    height: function.pxToRem(34);
+    width: function.pxToRem(34);
 }
