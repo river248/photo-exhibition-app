@@ -3018,3 +3018,12 @@ export const fakeRequest = async (params) => {
         }, 2000)
     })
 }
+
+export const fakeSubmitImage = async (body) => {
+    return new Promise((resolve, reject) => {
+        const wait = setTimeout(() => {
+            clearTimeout(wait)
+            resolve({ data: body })
+        }, 1000)
+    })
+}

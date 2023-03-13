@@ -45,7 +45,8 @@
     }
 }
 
-.submit-btn {
+.submit-btn,
+.loading {
     background-color: var(--warning);
     position: absolute;
     top: function.spacing(1);
@@ -54,4 +55,8 @@
     height: unset;
     font-style: italic;
     font-weight: 600;
+}
+
+.loading {
+    background-color: transparent;
 }
