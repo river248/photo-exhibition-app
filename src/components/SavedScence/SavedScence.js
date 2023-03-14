@@ -1,20 +1,17 @@
 import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBookmark } from '@fortawesome/free-regular-svg-icons'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify'
 import { isEmpty } from 'lodash'
 
 import styles from './SavedScence.module.scss'
 import OverlayImage from '~/components/OverlayImage'
-import Button from '~/components/Button'
 import { actClearSavedImage } from '~/redux/actions/imageAction'
 import { actToggleModal } from '~/redux/actions/globalAction'
 import { fakeSubmitImage } from '~/utils/fakeData'
 import { resExceptionMessageHandler } from '~/utils/helper'
-import DefaultLoading from '~/components/Loading/DefaultLoading'
+import PopupImagesForm from '~/components/PopupImagesForm'
 
 const cx = classNames.bind(styles)
 
@@ -39,15 +36,13 @@ function SavedScence({ savedImage, clearSaveImage, toggleModal }) {
     }
 
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('title')}>
-                <span>SAVED SCENCES</span>
-                <div className={cx('bookmark')}>
-                    <FontAwesomeIcon icon={faBookmark} />
-                    <span>{savedImage.length}</span>
-                </div>
-            </div>
-
+        <PopupImagesForm
+            title={'SAVED SCENCES'}
+            numberImages={savedImage.length}
+            isLoading={isLoading}
+            isDisabled={isEmpty(savedImage)}
+            onSubmit={handleSubmit}
+        >
             <div className={cx('saved-gallery')}>
                 {savedImage.map((image) => (
                     <div key={image.ImageID} className={cx('saved-gallery-item')}>
@@ -55,21 +50,7 @@ function SavedScence({ savedImage, clearSaveImage, toggleModal }) {
                     </div>
                 ))}
             </div>
-
-            {!isLoading ? (
-                <Button
-                    className={cx('submit-btn')}
-                    disabled={isEmpty(savedImage)}
-                    title={'Submit'}
-                    center
-                    onClick={handleSubmit}
-                />
-            ) : (
-                <div className={cx('loading')}>
-                    <DefaultLoading />
-                </div>
-            )}
-        </div>
+        </PopupImagesForm>
     )
 }
 

@@ -1,18 +1,45 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames/bind'
+import { toast } from 'react-toastify'
+import { connect } from 'react-redux'
 
 import styles from './SimilarImages.module.scss'
 import OverlayImage from '~/components/OverlayImage'
+import PopupImagesForm from '~/components/PopupImagesForm'
+import { resExceptionMessageHandler } from '~/utils/helper'
+import { fakeSubmitImage } from '~/utils/fakeData'
+import { actGetSimilarImages } from '~/redux/actions/imageAction'
 
 const cx = classNames.bind(styles)
 
-function SimilarImages({ images }) {
+function SimilarImages({ images, clearSimilarImages }) {
+    const [isLoading, setIsLoading] = useState(false)
+
+    const handleSubmit = async () => {
+        if (images.length > 0) {
+            const body = images.map((item) => item.ImageID)
+            console.log(body)
+            setIsLoading(true)
+            try {
+                await fakeSubmitImage(body)
+                clearSimilarImages()
+                toast.success('Submit successfully!')
+                setIsLoading(false)
+            } catch (error) {
+                toast.error(resExceptionMessageHandler(error))
+                setIsLoading(false)
+            }
+        }
+    }
+
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('title')}>
-                <span>SIMILAR IMAGES</span>
-            </div>
+        <PopupImagesForm
+            title={'SIMILAR IMAGES'}
+            isLoading={isLoading}
+            isDisabled={images.length < 1}
+            onSubmit={handleSubmit}
+        >
             <div className={cx('container')}>
                 {images.length > 0 ? (
                     <Fragment>
@@ -34,7 +61,7 @@ function SimilarImages({ images }) {
                     <div className={cx('no-image')}>No similar image</div>
                 )}
             </div>
-        </div>
+        </PopupImagesForm>
     )
 }
 
@@ -49,6 +76,15 @@ SimilarImages.propTypes = {
             image_link: PropTypes.string.isRequired,
         }),
     ),
+    clearSimilarImages: PropTypes.func,
 }
 
-export default SimilarImages
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearSimilarImages: () => {
+            dispatch(actGetSimilarImages([], false))
+        },
+    }
+}
+
+export default connect(null, mapDispatchToProps)(React.memo(SimilarImages))
