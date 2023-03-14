@@ -32,17 +32,6 @@
     }
 }
 
-.text-box-container {
-    max-width: function.pxToRem(480);
-    margin: 0 auto;
-}
-
-.inp {
-    background-image: linear-gradient(-135deg, #06beb6, #48b1bf);
-    border: 0;
-    box-shadow: var(--box-shadow);
-}
-
 .saved {
     &-gallery {
         padding: function.spacing(1, 2);

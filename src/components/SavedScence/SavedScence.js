@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,13 +15,11 @@ import { actToggleModal } from '~/redux/actions/globalAction'
 import { fakeSubmitImage } from '~/utils/fakeData'
 import { resExceptionMessageHandler } from '~/utils/helper'
 import DefaultLoading from '~/components/Loading/DefaultLoading'
-import Input from '~/components/Input'
 
 const cx = classNames.bind(styles)
 
 function SavedScence({ savedImage, clearSaveImage, toggleModal }) {
     const [isLoading, setIsLoading] = useState(false)
-    const textBoxRef = useRef(null)
 
     const handleSubmit = async () => {
         const body = savedImage.map((item) => item.ImageID)
@@ -48,10 +46,6 @@ function SavedScence({ savedImage, clearSaveImage, toggleModal }) {
                     <FontAwesomeIcon icon={faBookmark} />
                     <span>{savedImage.length}</span>
                 </div>
-            </div>
-
-            <div className={cx('text-box-container')}>
-                <Input ref={textBoxRef} className={cx('inp')} placeholder={'Enter your text'} />
             </div>
 
             <div className={cx('saved-gallery')}>

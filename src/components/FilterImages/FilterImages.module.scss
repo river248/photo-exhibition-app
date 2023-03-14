@@ -69,3 +69,31 @@
         width: function.pxToRem(55);
     }
 }
+
+.text-box-container {
+    margin-top: function.spacing(1);
+    width: 100%;
+    display: flex;
+
+    .send-button {
+        @include classes.center('align');
+        margin-left: function.spacing(1);
+        cursor: pointer;
+    }
+
+    .text-box {
+        width: 100%;
+        height: function.pxToRem(70);
+        border-radius: var(--radius);
+        font-size: function.pxToRem(14);
+        outline: none;
+        padding: function.spacing(0.5, 1);
+        border: function.pxToRem(2) solid var(--white-70);
+        background-color: var(--white-30);
+        color: var(--white);
+        resize: none;
+        &::placeholder {
+            color: var(--white);
+        }
+    }
+}
